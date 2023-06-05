@@ -11,7 +11,7 @@ class cadastroView{
         <input class="text-input" id="firstName" type="text" placeholder="Primeiro Nome:">
         <input class="text-input" id="lastName" type="text" placeholder="Segundo Nome:"> 
         
-        <input  id="date" type="date">
+        <input class="text-input" id="date" type="date">
         
         
         <button class="principal-buttons" type="submit" id="confirm">Confirm</button>

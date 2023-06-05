@@ -13,9 +13,29 @@
   height: 56px;
   border: none;
 }
+.principal-buttons:hover {
+  cursor: pointer;
+}
+.secundary-buttons {
+  background: #ffffff;
+  width: 295px;
+  height: 56px;
+  border: 1px solid #e8e6ea;
+  border-radius: 15px;
+}
+.secundary-buttons:hover {
+  cursor: pointer;
+}
+.text-input {
+  background: #ffffff;
+  border: 1px solid #e8e6ea;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 295px;
+  height: 58px;
+}
 
 /* ###onboardin################################################################################# */
-
 
 .carrosel .imagem {
   width: 235px;
@@ -24,7 +44,7 @@
   display: none;
 }
 .carrosel .imagem.ativa {
-display: flex;
+  display: flex;
 }
 .botoes-carrossel .botao {
   background: #000000;
@@ -80,16 +100,6 @@ display: flex;
 /* ####onboardin final########################## */
 
 /* ###singup################# */
-.text-input{
-  background: #FFFFFF;
-border: 1px solid #E8E6EA;
-border-radius: 15px;
-width: 100%;
-max-width: 295px;
-height: 58px ;
-}
-
-
 
 /* ###singup final################# */
 .interests-options {
@@ -110,7 +120,3 @@ height: 58px ;
   gap: 15px;
   flex-direction: column;
 }
-
-
-
-
