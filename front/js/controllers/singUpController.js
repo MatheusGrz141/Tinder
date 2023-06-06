@@ -7,6 +7,9 @@ class singUpController{
         document.querySelector("#confirm").addEventListener('click', ()=>{
             this.selectSex()
         })
+        document.querySelector(".skip").addEventListener('click', ()=>{
+            new Navegacao().irParaLogin()
+        })
     }
    
     selectSex(){ 
@@ -22,5 +25,6 @@ class singUpController{
        
         
     }
+
     
 }

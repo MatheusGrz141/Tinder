@@ -3,7 +3,7 @@ class cadastroView{
     template(){
         return`
         <div class="head"> 
-            <a href="">skip</a>
+            <a class="skip" href="">skip</a>
         </div>
         <h1>Profile Details</h1>
        

@@ -3,21 +3,52 @@ class mainAppView{
     template(){
         return `   
         <div class="head"> 
-            <a href="">turn back</a>
-            <a href="">Config</a>
+            <a href=""><img src="./js/imgs/iconTurnBack.svg" alt="Turn Back"></a>
+            <h1>Discover</h1>
+            <p>Chicago ,II</p>
+            
+            <a class="skip" href="">Config</a>
         </div>
-        <img src="./js/imgs/macaco.jpg" alt="macaco imagem">
+        <img class="img-user"src="./js/imgs/img1.png" alt="imagem de um usuário">
         <div class="interactions"> 
-            <button>X</button>
-            <button>Love</button>
-            <button>Star</button>
+            <button class="interaction"><img src="./js/imgs/iconCros.svg" alt=""></button>
+            <button class="heart"><img src="./js/imgs/iconHeart.svg" alt=""></button>
+            <button class="interaction"><img src="./js/imgs/iconStar.svg" alt=""></button>
+        </div>
+       
+        <img class="img-user"src="./js/imgs/img1.png" alt="imagem de um usuário">
+        <div class="interactions"> 
+            <button class="interaction"><img src="./js/imgs/iconCros.svg" alt=""></button>
+            <button class="heart"><img src="./js/imgs/iconHeart.svg" alt=""></button>
+            <button class="interaction"><img src="./js/imgs/iconStar.svg" alt=""></button>
+        </div>
+       
+        <img class="img-user"src="./js/imgs/img1.png" alt="imagem de um usuário">
+        <div class="interactions"> 
+            <button class="interaction"><img src="./js/imgs/iconCros.svg" alt=""></button>
+            <button class="heart"><img src="./js/imgs/iconHeart.svg" alt=""></button>
+            <button class="interaction"><img src="./js/imgs/iconStar.svg" alt=""></button>
+        </div>
+       
+        <img class="img-user"src="./js/imgs/img1.png" alt="imagem de um usuário">
+        <div class="interactions"> 
+            <button class="interaction"><img src="./js/imgs/iconCros.svg" alt=""></button>
+            <button class="heart"><img src="./js/imgs/iconHeart.svg" alt=""></button>
+            <button class="interaction"><img src="./js/imgs/iconStar.svg" alt=""></button>
+        </div>
+       
+        <img class="img-user"src="./js/imgs/img1.png" alt="imagem de um usuário">
+        <div class="interactions"> 
+            <button class="interaction"><img src="./js/imgs/iconCros.svg" alt=""></button>
+            <button class="heart"><img src="./js/imgs/iconHeart.svg" alt=""></button>
+            <button class="interaction"><img src="./js/imgs/iconStar.svg" alt=""></button>
         </div>
        
         
         <footer class="footer">
-            <button>main</button>
-            <button id="matches">matches</button>
-            <button>Profile</button>
+            <button><img src="./js/imgs/iconHome.svg" alt=""></button>
+            <button id="matches"><img src="./js/imgs/iconMatchs.svg" alt=""></button>
+            <button><img src="./js/imgs/iconProfile.svg" alt=""></button>
         </footer>`
     }
     

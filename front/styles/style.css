@@ -34,7 +34,20 @@
   max-width: 295px;
   height: 58px;
 }
-
+.head {
+  position: fixed;
+  background-color: white;
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 52px;
+}
+.skip {
+  color: #e94057;
+  text-decoration: none;
+}
 /* ###onboardin################################################################################# */
 
 .carrosel .imagem {
@@ -105,9 +118,21 @@
 .interests-options {
   width: 140px;
   height: 45px;
+  background: #ffffff;
+  border: 1px solid #e8e6ea;
+  border-radius: 15px;
+
+  border-radius: 15px;
+  cursor: pointer;
+}
+.interests-options-select {
+  width: 140px;
+  height: 45px;
   background: #e94057;
   box-shadow: 0px 15px 15px rgba(233, 64, 87, 0.2);
   border-radius: 15px;
+  border: none;
+  cursor: pointer;
 }
 .interests {
   display: flex;
@@ -120,3 +145,55 @@
   gap: 15px;
   flex-direction: column;
 }
+/* ###mainAppView################ */
+.img-user {
+  width: 250px;
+  height: 350px;
+  border-radius: 15px;
+}
+.interactions {
+  max-width: 300px;
+  width: 100%;
+  height: 90px;
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+  align-items: center;
+}
+.interactions .interaction {
+  background: #ffffff;
+  border: none;
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.07);
+  cursor: pointer;
+}
+.interactions .heart {
+  background: #e94057;
+  border: none;
+  width: 99px;
+  height: 99px;
+  border-radius: 50%;
+  box-shadow: 0px 15px 15px rgba(233, 64, 87, 0.2);
+  cursor: pointer;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  max-width: 350px;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: space-around;
+  background: #f3f3f3;
+}
+.footer * {
+  background: transparent;
+  border: none;
+  width: 64px;
+  height: 64px;
+
+  cursor: pointer;
+}
+/* ###mainAppView Final################ */
