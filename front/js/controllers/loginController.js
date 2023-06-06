@@ -17,7 +17,7 @@ class loginController{
                 this.mudarImagemDeFundo(index);  
             })
         })
-        this.meuEvento(0)
+        this.mudarImagemDeFundoAltomatica(0)
     }   
     CreateAnAccount(){
         new Navegacao().irParaSignUp()  
@@ -39,7 +39,7 @@ class loginController{
         selecionado.classList.remove('selecionado');
     }
     
-    meuEvento(i) {
+    mudarImagemDeFundoAltomatica(i) {
           
         
         let RandomN =  i;/* (Math.floor(Math.random() * 3)) */
@@ -65,7 +65,7 @@ class loginController{
         
         
         setTimeout(()=> {
-            clearInterval(this.meuEvento(i));
+            clearInterval(this.mudarImagemDeFundoAltomatica(i));
         }, 3000);
     }
 }
