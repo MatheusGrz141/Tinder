@@ -30,19 +30,7 @@ class mainAppView{
             <button class="interaction"><img src="./js/imgs/iconStar.svg" alt=""></button>
         </div>
        
-        <img class="img-user"src="./js/imgs/img1.png" alt="imagem de um usuário">
-        <div class="interactions"> 
-            <button class="interaction"><img src="./js/imgs/iconCros.svg" alt=""></button>
-            <button class="heart"><img src="./js/imgs/iconHeart.svg" alt=""></button>
-            <button class="interaction"><img src="./js/imgs/iconStar.svg" alt=""></button>
-        </div>
-       
-        <img class="img-user"src="./js/imgs/img1.png" alt="imagem de um usuário">
-        <div class="interactions"> 
-            <button class="interaction"><img src="./js/imgs/iconCros.svg" alt=""></button>
-            <button class="heart"><img src="./js/imgs/iconHeart.svg" alt=""></button>
-            <button class="interaction"><img src="./js/imgs/iconStar.svg" alt=""></button>
-        </div>
+     
        
         
         <footer class="footer">
