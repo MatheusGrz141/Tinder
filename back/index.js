@@ -1,34 +1,42 @@
-const express = require ('express');
-const mongoose = require("mongoose")
---disable-web-security
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors")
+
+const userRouter = require("./controllers/user.controller");
+
+async function funcao(){
+    
+    
+    
+    mongoose.connect('mongodb://127.0.0.1:27017/tinder', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => {
+    console.log('Conectado ao MongoDB');
+})
+.catch((err) => {
+    console.error('Erro ao conectar ao MongoDB', err);
+});
+
 const app = express();
 
+app.use(express.static('.'))
 
-try{
+app.use(express.json());
 
-    app.get("/",async(req,res)=>{
-        res.send("bacate")  
-    })
-    app.post('/',async(req,res)=>{
-          res.send("bacate")  
-    })
+app.use(cors()); 
 
 
+app.use("/users", userRouter);
 
 
-
-
+app.listen(3000,()=>{
+    console.log("Servidor Rodando");
+})
 
 
 
-
-    app.listen(3000,()=>{
-        console.log("Servidor Rodando");
-    }).catch(()=>{
-        console.log("erro ao iniciar servidor");
-    })
-
-}catch(e){
-    console.log("Houve um erro :",e);
 
 }
+funcao()

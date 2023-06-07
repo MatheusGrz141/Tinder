@@ -8,6 +8,9 @@ class loginController{
         document.querySelector("#create-an-account").addEventListener("click" , ()=>{
             this.CreateAnAccount()
         });
+        document.querySelector("#sign-in").addEventListener("click",()=>{
+        
+        })
         let botoesCarrosel =  document.querySelectorAll('.botao');
         botoesCarrosel.forEach((botao , index)=>{
             botao.addEventListener('click' ,() =>{
@@ -41,7 +44,9 @@ class loginController{
     
     mudarImagemDeFundoAltomatica(i) {
           
-        
+        if(!document.querySelector(".carrosel")){
+            return
+        }
         let RandomN =  i;/* (Math.floor(Math.random() * 3)) */
         
         
