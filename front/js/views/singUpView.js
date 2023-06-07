@@ -2,20 +2,27 @@ class cadastroView{
     
     template(){
         return`
-        <form id="form-sign-up">
+        
         <div class="head"> 
-            <a class="skip" href="">skip</a>
+        <a class="skip" href="">skip</a>
         </div>
+        
+        
+        <form>
         <h1>Profile Details</h1>
-        <img id="imagem"src="./js/imgs/iconProfile.svg" alt="">
+        <input style="display: none" type="file" id="avatar" name="avatar">
+        
+        <div class="mb-2 text-center avatar-content">
+        <img id="avatar-preview"  width="100px" height="100px" src="./js/imgs/iconProfile.svg">
+        </div>
         <input type="hidden" id="selectImage" type="file">
-        <input value= "as" class="text-input" id="firstName" type="text" placeholder="Primeiro Nome:">
-        <input value= "as" class="text-input" id="lastName" type="text" placeholder="Segundo Nome:"> 
+        <input  class="text-input" id="firstName" type="text" placeholder="Primeiro Nome:">
+        <input  class="text-input" id="lastName" type="text" placeholder="Segundo Nome:"> 
         
         <input class="text-input" id="date" type="date">
         
         
-        <button class="principal-buttons" type="submit" id="confirm">Confirm</button>
+        <button type = "submit" class="principal-buttons"  id="confirm">Confirm</button>
         </form>
         
         

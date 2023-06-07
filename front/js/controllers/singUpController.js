@@ -3,17 +3,27 @@ class singUpController{
     
     init(){
         document.querySelector("#main").innerHTML = new cadastroView().template()
+        this.setInputFile = document.querySelector("#avatar");
+        this.setAvatarPreview = document.querySelector("#avatar-preview");
+        
+        this.bind();
+    } 
+    
+    bind(){
         
         document.querySelector("#confirm").addEventListener('click', ()=>{
             this.selectSex()
         })
         document.querySelector(".skip").addEventListener('click', ()=>{
             new Navegacao().irParaLogin()
+        }) 
+        this.avatarPreview.addEventListener("click", () => {
+            this.inputFile.click();
+        });
+        this.inputFile.addEventListener("change", () => {
+            this.showPreview();
         })
-        document.querySelector("#imagem").addEventListener('click',()=>{
-            /*   let baba = document.querySelector("#selectImage")
-            baba.click() */
-        })
+        
     }
     
     async selectSex(){ 
@@ -22,29 +32,44 @@ class singUpController{
         let lastName =  document.querySelector("#lastName").value;
         
         let bodyData = {
-            firstName,
-            lastName  
+            firstName:firstName,
+            lastName:lastName
         };
-        console.log(bodyData)
-       let sessao  =  await fetch("http://localhost:3000/users/sign-in", {
-        method: "POST",
-        body: JSON.stringify(bodyData)  
+        
+        let sessao  =  await fetch("http://localhost:3000/users/sign-up", {
+        method:"POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body:JSON.stringify(bodyData)  
+    }     ).catch((e)=>{
+        console.log("erro no fetch: "+e)
     })
-    console.log(sessao) 
+    let sessaoTokenJson = await sessao.json();
     
     
-    
-    /*  let sessaoTokenJson = await sessao.json();
-    console.log("resposta", sessaoTokenJson);
-    
-    sessionStorage.setItem("token", sessaoTokenJson.token); */
-    
-    
-    
-    /*     new Navegacao().irParaSelectSex(); */
+    sessionStorage.setItem("token", sessaoTokenJson.token); 
+    new Navegacao().irParaSelectSex(); 
     
     
 }
+showPreview() {
+    if(this.inputFile.files && this.inputFile.files[0]) {
+        var reader = new FileReader();
+        reader.onload = (e) => {
+            this.avatarPreview.src = e.target.result;
+        };
+        reader.readAsDataURL(this.inputFile.files[0])
+    }
+}
 
+set setInputFile(inputFile) {
+    this.inputFile = inputFile;
+}
+
+set setAvatarPreview(avatarPreview) {
+    this.avatarPreview = avatarPreview;
+}
 
 }
+
