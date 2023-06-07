@@ -2,6 +2,7 @@ class cadastroView{
     
     template(){
         return`
+        <form id="form-sign-up">
         <div class="head"> 
             <a class="skip" href="">skip</a>
         </div>
@@ -15,7 +16,7 @@ class cadastroView{
         
         
         <button class="principal-buttons" type="submit" id="confirm">Confirm</button>
-       
+        </form>
         
         
         `

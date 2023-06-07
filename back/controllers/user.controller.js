@@ -23,17 +23,20 @@ userRouter.get("/" , async (req,res)=>{
     });  
     */
 })
-userRouter.post("/sign-up" , async (req,res)=>{
+userRouter.post("/sign-in" , async (req,res)=>{
     
+    console.log("req "+ req)
     let {
         firstName,
         lastName
-    } = req.body ;
+    } = JSON.stringify((req.body));
 
 
-    console.log("First name "+firstName)
-    console.log("First name "+lastName)
-    User.findOne({firstName: req.body.firstName}).then((usuario)=>{
+    console.log("req.body "+req.body)
+    console.log("firstName "+firstName)
+    console.log("lastName "+lastName)
+    
+    User.findOne({firstName , lastName}).then((usuario)=>{
         if(usuario){
             console.log("if")
             console.log(usuario)

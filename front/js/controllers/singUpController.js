@@ -20,19 +20,19 @@ class singUpController{
         
         let firstName =  document.querySelector("#firstName").value;
         let lastName =  document.querySelector("#lastName").value;
-       
+        
         let bodyData = {
             firstName,
             lastName  
         };
-         console.log(bodyData)
-       await fetch("http://localhost:3000/users/sign-up", {
+        console.log(bodyData)
+       let sessao  =  await fetch("http://localhost:3000/users/sign-in", {
         method: "POST",
         body: JSON.stringify(bodyData)  
-    }).then((sessao)=>{
-         console.log(sessao) 
     })
-  
+    console.log(sessao) 
+    
+    
     
     /*  let sessaoTokenJson = await sessao.json();
     console.log("resposta", sessaoTokenJson);
