@@ -1,6 +1,10 @@
 class Navegacao{
   constructor(){
     this.rotas=  {
+
+      inicio:{
+        controller: new inicioController()
+      },
       login: {
         controller: new loginController()
       },
@@ -14,10 +18,16 @@ class Navegacao{
       selectInterests:{
         controller: new selectInterestsController()
       },
+      matches:{
+        controller: new matchesController()
+      },
       mainApp:{
         controller: new mainAppController()
       },
     }
+  }
+  irParaInicio(){
+    this.irPara(this.rotas.inicio)
   }
   irParaLogin() {
     this.irPara(this.rotas.login);  
@@ -33,6 +43,9 @@ class Navegacao{
   }
   irParaMainApp(){
     this.irPara(this.rotas.mainApp);
+  }
+  irParaMatches(){
+    this.irPara(this.rotas.matches);
   }
   
   

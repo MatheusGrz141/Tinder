@@ -1,6 +1,8 @@
-
 class singUpController{
-    
+   constructor (email){
+    let model = new inicioModel(email)
+    console.log(model)
+   }
     init(){
         document.querySelector("#main").innerHTML = new cadastroView().template()
         this.setInputFile = document.querySelector("#avatar");
@@ -36,22 +38,15 @@ class singUpController{
             lastName:lastName
         };
         
-        let sessao  =  await fetch("http://localhost:3000/users/sign-up", {
+        await fetch("http://localhost:3000/users/sign-up", {
         method:"POST",
         headers: {
             "Content-Type": "application/json"
         },
         body:JSON.stringify(bodyData)  
-    }     ).catch((e)=>{
-        console.log("erro no fetch: "+e)
-    })
-    let sessaoTokenJson = await sessao.json();
-    
-    
-    sessionStorage.setItem("token", sessaoTokenJson.token); 
-    new Navegacao().irParaSelectSex(); 
-    
-    
+    }).then(()=>{
+        new Navegacao().irParaSelectSex(); 
+    })   
 }
 showPreview() {
     if(this.inputFile.files && this.inputFile.files[0]) {

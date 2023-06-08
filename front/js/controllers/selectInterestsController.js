@@ -8,6 +8,10 @@ class selectInterestsController{
         document.querySelector(".skip").addEventListener('click', ()=>{
             new Navegacao().irParaLogin()
         })
+
+        document.querySelector("#TurnBack").addEventListener('click', ()=>{
+            new Navegacao().irParaSelectSex()
+        })
         let buttons= document.querySelectorAll(".selectInterests");
         
         buttons.forEach((botao,index)=>{

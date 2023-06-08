@@ -7,7 +7,7 @@ class mainAppController{
     bind(){
       
         document.querySelector("#matches").addEventListener('click', ()=>{
-          alert("hipsfhsp")
+          new Navegacao().irParaMatches()
         })
     }
 }

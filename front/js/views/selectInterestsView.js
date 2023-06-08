@@ -2,9 +2,10 @@ class selectInterestsView{
     template(){
         return `    
         <div class="head"> 
-        <a href=""><img src="./js/imgs/iconTurnBack.svg" alt="Turn Back"></a>
+        <a href="#" id="TurnBack"><img src="./js/imgs/iconTurnBack.svg" alt="Turn Back"></a>
             <a class="skip" href="">skip</a>
         </div>
+        <form action="#">
         <h1>Your interests</h1>
         <p>Select a few of your interests and let everyone know what you’re passionate about.</p>
         <div class="interests">
@@ -26,7 +27,7 @@ class selectInterestsView{
                 <button class="interests-options selectInterests">Music</button>
                 <button class="interests-options selectInterests">Video Games</button>
             </div>
-        
+            </form>
         
         </div>
         <button class="principal-buttons" id="continue">Continue</button>`

@@ -4,11 +4,12 @@ class cadastroView{
         return`
         
         <div class="head"> 
-        <a class="skip" href="">skip</a>
+        <a href="#" id="TurnBack"></a>
+            <a class="skip" href="">skip</a>
         </div>
         
         
-        <form>
+        <form action="#">
         <h1>Profile Details</h1>
         <input style="display: none" type="file" id="avatar" name="avatar">
         

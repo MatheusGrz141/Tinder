@@ -8,6 +8,10 @@ class selectSexController{
         document.querySelector(".skip").addEventListener('click', ()=>{
             new Navegacao().irParaLogin()
         })
+        document.querySelector("#TurnBack").addEventListener('click', ()=>{
+            new Navegacao().irParaSignUp()
+        })
+        
         let buttons= document.querySelectorAll(".secundary-buttons");
         
         buttons.forEach((botao,index)=>{
