@@ -3,7 +3,7 @@ class mainAppView{
     template(){
         return `   
         <div class="head"> 
-            <a href=""><img src="./js/imgs/iconTurnBack.svg" alt="Turn Back"></a>
+            <a href="#"><img src="./js/imgs/iconTurnBack.svg" alt="Turn Back"></a>
             <h1>Discover</h1>
             <p>Chicago ,II</p>
             

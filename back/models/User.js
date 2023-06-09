@@ -1,10 +1,13 @@
 const mongoose = require("mongoose")
 
 const userSchema = new mongoose.Schema({
+    email:String,
+    firstName: String,
+    lastName:String,
+    birthday:Date,
+    avatar:String,
+    dateNow:{ type: Date, default: Date.now },
     
-    firstName: "String",
-    lastName:"String",
-    email:"String",
 })
 const User =  mongoose.model("User" ,userSchema)
 

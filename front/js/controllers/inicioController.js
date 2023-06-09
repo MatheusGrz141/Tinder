@@ -4,12 +4,13 @@ class inicioController{
         this.bind()
     }
     bind(){
-        document.querySelector("#continue").addEventListener("click",()=>{
-            this.buscarEmail()
-            
-        })
+     
         document.querySelector("#TurnBack").addEventListener('click',()=>{
             new Navegacao().irParaLogin()
+        }) 
+          document.querySelector("#continue").addEventListener("click",()=>{
+            this.buscarEmail()
+            
         })
     }
     
@@ -18,24 +19,25 @@ class inicioController{
         let email= document.querySelector("#email").value
         let bodyData = {
             email:email,
-            
         };
-        let sessao  =  await fetch("http://localhost:3000/users/find-account", {
+        
+        let existeEmail  =  await fetch("http://localhost:3000/users/find-account", {
         method:"POST",
         headers: {
             "Content-Type": "application/json"
         },
         body:JSON.stringify(bodyData)  
-    }     ).catch((e)=>{
+    }).catch((e)=>{
         console.log("erro no fetch: "+e)
     })
-   
-    let sessaoFeita = await sessao.json()
     
-    if(sessaoFeita){
+    let existeEmailJson = await existeEmail.json()
+    
+    if(existeEmailJson){
         new Navegacao().irParaMainApp();
     }else{
-        new Navegacao().irParaSignUp(this.email)
+        alert("Email Não cadastrado , crie sua conta !")
+        new Navegacao().irParaSignUp()
     } 
     
 }

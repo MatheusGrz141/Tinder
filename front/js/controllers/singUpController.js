@@ -1,19 +1,18 @@
 class singUpController{
-   constructor (email){
-    let model = new inicioModel(email)
-    console.log(model)
-   }
-    init(){
+    
+    init(){ 
+        
+        
         document.querySelector("#main").innerHTML = new cadastroView().template()
         this.setInputFile = document.querySelector("#avatar");
         this.setAvatarPreview = document.querySelector("#avatar-preview");
-        
         this.bind();
     } 
     
     bind(){
         
-        document.querySelector("#confirm").addEventListener('click', ()=>{
+        document.querySelector("#confirm").addEventListener('click', (e)=>{
+            e.preventDefault()
             this.selectSex()
         })
         document.querySelector(".skip").addEventListener('click', ()=>{
@@ -28,27 +27,34 @@ class singUpController{
         
     }
     
-    async selectSex(){ 
-        
+    async selectSex(){
         let firstName =  document.querySelector("#firstName").value;
         let lastName =  document.querySelector("#lastName").value;
+        let birthday  = document.querySelector("#birthday").value;
+        /*    let formData = {
+            firstName :firstName,
+            lastName:lastName,
+            date: Date.now()
+        } */
         
-        let bodyData = {
-            firstName:firstName,
-            lastName:lastName
-        };
+        let formData = new FormData();
+        formData.append("firstName" ,firstName)
+        formData.append("lastName",lastName)
+        formData.append("avatar", this.inputFile.files[0]);   
+        formData.append("birthday",birthday)
+        
         
         await fetch("http://localhost:3000/users/sign-up", {
         method:"POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body:JSON.stringify(bodyData)  
+        body:  formData/* JSON.stringify(formData)  */
     }).then(()=>{
+        
         new Navegacao().irParaSelectSex(); 
     })   
+    
 }
 showPreview() {
+    
     if(this.inputFile.files && this.inputFile.files[0]) {
         var reader = new FileReader();
         reader.onload = (e) => {

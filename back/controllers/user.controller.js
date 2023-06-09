@@ -3,19 +3,27 @@ const sha256 = require("crypto-js/sha256")
 const Base64 =require("crypto-js/enc-base64") 
 const User = require("../models/User") 
 const userRouter = express.Router({mergeParams: true});
-/* const authMiddleWare = require("../middlewares/auth.middleware"); */
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' });
+
 const mongoose = require("mongoose")
 
-userRouter.post("/sign-up" , async (req,res)=>{
+userRouter.post("/sign-up", upload.single("avatar")  , async (req,res)=>{
+    let avatar = `http://localhost:3000/${req.file.path}`;
+    /* const usuarioNovo =  */
     
-    const usuarioNovo = mongoose.model('User')
-    new usuarioNovo({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
+    
+    new mongoose.model('User')({
+        avatar:avatar,
+        firstName:req.body.firstName,
+        lastName:req.body.lastName,
+        birthday:req.body.birthday,
+
+
         
     }).save().then(()=>{
         
-        console.log("Salvo com sucesso") 
+        console.log("Salvo com sucesso  ") 
         return res.send(true)
     }).catch((err)=>{
         console.log("Usuario não salvo " +err)  
@@ -68,6 +76,7 @@ userRouter.post("/sign-in", async (req, res) => {
 userRouter.post("/find-account",(req,res)=>{
     
     let {email} = req.body
+    
     User.findOne({ email }).then((emailAchado) => {
         if (emailAchado) {
             console.log("Usuário já cadastrado");
