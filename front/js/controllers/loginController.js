@@ -70,7 +70,7 @@ class loginController{
         }, 3000);
     }
     async signIn(){
-        
+/*         
         let firstName =  document.querySelector("#firstName").value;
         let lastName =  document.querySelector("#lastName").value;
         
@@ -92,7 +92,7 @@ class loginController{
     
     
     sessionStorage.setItem("token", sessaoTokenJson.token);  
-    new Navegacao().irParaSelectSex();
+    new Navegacao().irParaSelectSex(); */
     
     
     

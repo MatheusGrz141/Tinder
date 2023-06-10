@@ -37,7 +37,7 @@ class inicioController{
         new Navegacao().irParaMainApp();
     }else{
         alert("Email Não cadastrado , crie sua conta !")
-        localStorage.setItem("emailCadastro" , email)
+        sessionStorage.setItem("emailCadastro" , email)
         new Navegacao().irParaSignUp()
     } 
     

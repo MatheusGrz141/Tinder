@@ -35,7 +35,7 @@ class selectInterestsController{
             interests.push(interest.value)
         })
         
-        let email =  localStorage.getItem("emailCadastro");
+        let email =   sessionStorage.getItem("emailCadastro" )
         
         let bodyData = {
             email:email,
@@ -55,7 +55,7 @@ class selectInterestsController{
         
         
         
-        new Navegacao().irParaMainApp() 
+        new Navegacao().irParaPassword() 
     }
     
     

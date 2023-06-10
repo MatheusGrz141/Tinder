@@ -23,11 +23,18 @@ console.log(novoArray)
             
             if(req.body.interests ){
                 emailAchado.interests  = req.body.interests
+                console.log("interesse salva com sucesso")
+            }
+            if(req.body.password){
+                emailAchado.password =   Base64.stringify(sha256(req.body.password)); 
+                console.log("senha salva com sucesso")
             }
             
             
-            emailAchado.save()
-            console.log("genero ou interests escolhido salvo com sucesso")
+            emailAchado.save().then(()=>{
+                console.log("salvo com sucesso no banco")
+            })
+           
             return  res.send(true);
         } else{
             console.log("não achemo o cabra")

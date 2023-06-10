@@ -25,7 +25,7 @@ class selectSexController{
     async selectInterests(){
         
         
-        let email =  localStorage.getItem("emailCadastro");
+        let email =  sessionStorage.getItem("emailCadastro")
         let iAm = document.querySelector(".principal-buttons ").value;
         
         

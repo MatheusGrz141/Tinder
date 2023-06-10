@@ -31,7 +31,7 @@ class singUpController{
         let firstName =  document.querySelector("#firstName").value;
         let lastName =  document.querySelector("#lastName").value;
         let birthday  = document.querySelector("#birthday").value;
-        let email =  localStorage.getItem("emailCadastro");
+        let email =   sessionStorage.getItem("emailCadastro")
         
         
         
