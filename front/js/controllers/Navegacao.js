@@ -1,8 +1,5 @@
 class Navegacao{
-  constructor(){
-
-  
-   
+  constructor(){  
    
     this.rotas=  {
 

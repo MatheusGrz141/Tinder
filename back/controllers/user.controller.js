@@ -8,26 +8,58 @@ const upload = multer({ dest: 'uploads/' });
 
 const mongoose = require("mongoose")
 
+
+userRouter.post("/update-account" , (req,res)=>{
+    let {email} = req.body
+    
+let novoArray = (req.body.interests)
+console.log(novoArray)
+    User.findOne({email}).then((emailAchado) => {
+        if (emailAchado) {
+            if(!emailAchado.iAm){
+                emailAchado.iAm = req.body.iAm; 
+            }
+            
+            
+            if(req.body.interests ){
+                emailAchado.interests  = req.body.interests
+            }
+            
+            
+            emailAchado.save()
+            console.log("genero ou interests escolhido salvo com sucesso")
+            return  res.send(true);
+        } else{
+            console.log("não achemo o cabra")
+        }
+        return
+    }) 
+})
+
 userRouter.post("/sign-up", upload.single("avatar")  , async (req,res)=>{
     let avatar = `http://localhost:3000/${req.file.path}`;
-    /* const usuarioNovo =  */
     
     
-    new mongoose.model('User')({
+    
+    new mongoose.model('User')({ 
         avatar:avatar,
+        email:req.body.email,
         firstName:req.body.firstName,
         lastName:req.body.lastName,
         birthday:req.body.birthday,
-
-
+        
+        
         
     }).save().then(()=>{
-        
+        token = {
+            firstName:req.body.firstName,
+            lastName:req.body.lastName,
+        }
         console.log("Salvo com sucesso  ") 
-        return res.send(true)
+        return res.send({token:token})
     }).catch((err)=>{
         console.log("Usuario não salvo " +err)  
-        return res.send(false)
+        res.status(401).send({error: "Email ou senha inválido"});
     });  
     
 })
@@ -84,7 +116,8 @@ userRouter.post("/find-account",(req,res)=>{
             return  res.send(true);
         } else {
             console.log("usuario nao cadastrado");
-            return res.send(false);
+            return res.send(false)
+            
         }
         
     }) 

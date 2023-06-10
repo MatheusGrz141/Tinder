@@ -3,13 +3,17 @@ class selectSexView{
         return`  
         <div class="head"> 
         <a href="#" id="TurnBack"><img src="./js/imgs/iconTurnBack.svg" alt="Turn Back"></a>
-            <a class="skip" href="">skip</a>
+        <a class="skip" href="">skip</a>
         </div>
         <h1>I am a </h1>
-        <button  class="secundary-buttons selectSex">Woman</button>
-        <button class="secundary-buttons selectSex">Man</button>
-        <button class="secundary-buttons selectSex" >Pitbull rebaixado</button>
+        <form action="#">
         
-        <button class="principal-buttons" id="continue">Continue</button>`
+        
+        <button value="Woman"  class="secundary-buttons selectSex">Woman</button>
+        <button value="Man" class="secundary-buttons selectSex">Man</button>
+        <input placeholder="custom gender" class="secundary-buttons selectSex" ></input>
+        
+        <button class="principal-buttons" id="continue">Continue</button>
+        </form>`
     }
 }

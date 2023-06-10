@@ -6,7 +6,9 @@ const userSchema = new mongoose.Schema({
     lastName:String,
     birthday:Date,
     avatar:String,
+    iAm: String,
     dateNow:{ type: Date, default: Date.now },
+    interests: {type: [String]},
     
 })
 const User =  mongoose.model("User" ,userSchema)

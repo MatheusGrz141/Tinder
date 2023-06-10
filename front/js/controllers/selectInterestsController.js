@@ -1,3 +1,5 @@
+
+
 class selectInterestsController{
     init(){
         document.querySelector("#main").innerHTML = new selectInterestsView().template();
@@ -8,7 +10,7 @@ class selectInterestsController{
         document.querySelector(".skip").addEventListener('click', ()=>{
             new Navegacao().irParaLogin()
         })
-
+        
         document.querySelector("#TurnBack").addEventListener('click', ()=>{
             new Navegacao().irParaSelectSex()
         })
@@ -22,8 +24,38 @@ class selectInterestsController{
         
     }
     
-    mainApp(){
-        new Navegacao().irParaMainApp()
+    async mainApp(){
+        let arrayIntereces= []
+
+        arrayIntereces = document.querySelectorAll(".interests-options-select")
+
+
+        let interests = []
+        arrayIntereces.forEach((interest)=>{
+            interests.push(interest.value)
+        })
+        
+        let email =  localStorage.getItem("emailCadastro");
+        
+        let bodyData = {
+            email:email,
+            interests:interests
+        };
+        
+        
+        
+        await fetch("http://localhost:3000/users/update-account", {
+        method:"POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body:JSON.stringify(bodyData) }) 
+        
+        
+        
+        
+        
+        new Navegacao().irParaMainApp() 
     }
     
     

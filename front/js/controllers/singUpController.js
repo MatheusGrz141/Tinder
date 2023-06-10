@@ -31,46 +31,50 @@ class singUpController{
         let firstName =  document.querySelector("#firstName").value;
         let lastName =  document.querySelector("#lastName").value;
         let birthday  = document.querySelector("#birthday").value;
-        /*    let formData = {
-            firstName :firstName,
-            lastName:lastName,
-            date: Date.now()
-        } */
+        let email =  localStorage.getItem("emailCadastro");
+        
+        
+        
         
         let formData = new FormData();
         formData.append("firstName" ,firstName)
         formData.append("lastName",lastName)
         formData.append("avatar", this.inputFile.files[0]);   
         formData.append("birthday",birthday)
+        formData.append("email",email)
         
-        
-        await fetch("http://localhost:3000/users/sign-up", {
+       let signUp= await fetch("http://localhost:3000/users/sign-up", {
         method:"POST",
-        body:  formData/* JSON.stringify(formData)  */
-    }).then(()=>{
         
-        new Navegacao().irParaSelectSex(); 
-    })   
-    
-}
-showPreview() {
-    
-    if(this.inputFile.files && this.inputFile.files[0]) {
-        var reader = new FileReader();
-        reader.onload = (e) => {
-            this.avatarPreview.src = e.target.result;
-        };
-        reader.readAsDataURL(this.inputFile.files[0])
+        body:  formData })
+
+         if(signUp){
+              new Navegacao().irParaSelectSex(); 
+        }
+
+        
+       
+        
+        
     }
-}
-
-set setInputFile(inputFile) {
-    this.inputFile = inputFile;
-}
-
-set setAvatarPreview(avatarPreview) {
-    this.avatarPreview = avatarPreview;
-}
-
+    showPreview() {
+        
+        if(this.inputFile.files && this.inputFile.files[0]) {
+            var reader = new FileReader();
+            reader.onload = (e) => {
+                this.avatarPreview.src = e.target.result;
+            };
+            reader.readAsDataURL(this.inputFile.files[0])
+        }
+    }
+    
+    set setInputFile(inputFile) {
+        this.inputFile = inputFile;
+    }
+    
+    set setAvatarPreview(avatarPreview) {
+        this.avatarPreview = avatarPreview;
+    }
+    
 }
 
