@@ -26,19 +26,19 @@ class selectInterestsController{
     
     async mainApp(){
         let arrayIntereces= []
-
+        
         arrayIntereces = document.querySelectorAll(".interests-options-select")
-
-
+        
+        
         let interests = []
         arrayIntereces.forEach((interest)=>{
             interests.push(interest.value)
         })
         
-        let email =   sessionStorage.getItem("emailCadastro" )
+        
         
         let bodyData = {
-            email:email,
+            
             interests:interests
         };
         
@@ -47,7 +47,8 @@ class selectInterestsController{
         await fetch("http://localhost:3000/users/update-account", {
         method:"POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "token": sessionStorage.getItem("token")
         },
         body:JSON.stringify(bodyData) }) 
         
@@ -55,7 +56,7 @@ class selectInterestsController{
         
         
         
-        new Navegacao().irParaPassword() 
+        new Navegacao().irParaSignUpPassword() 
     }
     
     

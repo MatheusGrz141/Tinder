@@ -22,8 +22,11 @@ class Navegacao{
       matches:{
         controller: new matchesController()
       },
-      password:{
-        controller: new passwordController()
+      signUpPassword:{
+        controller: new signUpPasswordController()
+      },
+      loginPassword: {
+        controller: new loginPasswordController()
       },
       mainApp:{
         controller: new mainAppController()
@@ -48,8 +51,11 @@ class Navegacao{
   irParaMainApp(){
     this.irPara(this.rotas.mainApp);
   }
-  irParaPassword(){
-    this.irPara(this.rotas.password)
+  irParaSignUpPassword(){
+    this.irPara(this.rotas.signUpPassword)
+  }
+  irParaloginPassword(){
+    this.irPara(this.rotas.loginPassword)
   }
   irParaMatches(){
     this.irPara(this.rotas.matches);

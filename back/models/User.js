@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
     birthday:Date,
     avatar:String,
     iAm: String,
-    dateNow:{ type: Date, default: Date.now },
+    dateNow:{ type: Date, default: Date.now() },
     interests: {type: [String]},
     
 })

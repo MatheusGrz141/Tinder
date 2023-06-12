@@ -34,10 +34,11 @@ class inicioController{
     let existeEmailJson = await existeEmail.json()
     
     if(existeEmailJson){
-        new Navegacao().irParaMainApp();
+        new Navegacao().irParaloginPassword();
+       
     }else{
         alert("Email Não cadastrado , crie sua conta !")
-        sessionStorage.setItem("emailCadastro" , email)
+        localStorage.setItem("emailCadastro" , email)
         new Navegacao().irParaSignUp()
     } 
     

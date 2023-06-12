@@ -31,7 +31,7 @@ class singUpController{
         let firstName =  document.querySelector("#firstName").value;
         let lastName =  document.querySelector("#lastName").value;
         let birthday  = document.querySelector("#birthday").value;
-        let email =   sessionStorage.getItem("emailCadastro")
+        
         
         
         
@@ -41,40 +41,43 @@ class singUpController{
         formData.append("lastName",lastName)
         formData.append("avatar", this.inputFile.files[0]);   
         formData.append("birthday",birthday)
-        formData.append("email",email)
+        formData.append("email",localStorage.getItem("emailCadastro"))
         
-       let signUp= await fetch("http://localhost:3000/users/sign-up", {
-        method:"POST",
-        
-        body:  formData })
+        let signUp = await fetch("http://localhost:3000/users/sign-up", {
+        method:"POST", 
+        body:  formData 
+    });
+    let signUpJson = await signUp.json()
+    if(signUpJson){ 
+        sessionStorage.setItem("token",signUpJson.token)
+      
+        new Navegacao().irParaSelectSex(); 
+    }
+    
+    
+    
+    
+    
+    
+}
+showPreview() {
+    
+    if(this.inputFile.files && this.inputFile.files[0]) {
+        var reader = new FileReader();
+        reader.onload = (e) => {
+            this.avatarPreview.src = e.target.result;
+        };
+        reader.readAsDataURL(this.inputFile.files[0])
+    }
+}
 
-         if(signUp){
-              new Navegacao().irParaSelectSex(); 
-        }
+set setInputFile(inputFile) {
+    this.inputFile = inputFile;
+}
 
-        
-       
-        
-        
-    }
-    showPreview() {
-        
-        if(this.inputFile.files && this.inputFile.files[0]) {
-            var reader = new FileReader();
-            reader.onload = (e) => {
-                this.avatarPreview.src = e.target.result;
-            };
-            reader.readAsDataURL(this.inputFile.files[0])
-        }
-    }
-    
-    set setInputFile(inputFile) {
-        this.inputFile = inputFile;
-    }
-    
-    set setAvatarPreview(avatarPreview) {
-        this.avatarPreview = avatarPreview;
-    }
-    
+set setAvatarPreview(avatarPreview) {
+    this.avatarPreview = avatarPreview;
+}
+
 }
 

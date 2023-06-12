@@ -2,6 +2,7 @@
 
 class selectSexController{
     init(){
+        console.log("Entrou no select SEx controller token: "+sessionStorage.getItem("token"))
         document.querySelector("#main").innerHTML = new selectSexView().template()
         
         document.querySelector("#continue").addEventListener("click" , ()=>{
@@ -24,24 +25,16 @@ class selectSexController{
     }
     async selectInterests(){
         
-        
-        let email =  sessionStorage.getItem("emailCadastro")
         let iAm = document.querySelector(".principal-buttons ").value;
         
-        
-        
-        
         let bodyData = {
-            email:email,
             iAm:iAm,
         }
-        
-        
         
         await fetch("http://localhost:3000/users/update-account", {
         method:"POST",
         headers: {
-            "Content-Type": "application/json"
+            "token": sessionStorage.getItem("token")
         },
         body: JSON.stringify(bodyData) 
     })
