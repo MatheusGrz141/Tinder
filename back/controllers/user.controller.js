@@ -65,26 +65,32 @@ userRouter.post("/sign-up", upload.single("avatar")  , async (req,res)=>{
     });  
 })
 userRouter.post("/sign-in", async (req, res) => {
-    let { password ,email} = req.body
-  
-    password = Base64.stringify(sha256(password))
-
-    await User.findOne({email , password}).then((user)=>{
+    
+    
+    console.log("{email:email,password:password} ",req.body.email,req.body.password)
+    password = Base64.stringify(sha256(req.body.password))
+    
+    let user =  await User.findOne({email:req.body.email,  password:password})
+    
+    if(user){
+        console.log("user223 ",user)
 
         const token = jwt.sign({  
             email: user.email, 
             id: user._id
-        }, secret);
+        }, secret)
+
+
         return res.send({token: token});
-    })
+        
+    }else{
+        console.log("userfalse223 ")
+        return res.send(false) 
+    }
     
     
-    
-    res.status(401).send({error: "Email ou senha inválido"});
-    
-    
-    
-})  
+}
+)  
 
 
 userRouter.post("/find-account",(req,res)=>{

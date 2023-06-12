@@ -20,7 +20,7 @@ class inicioController{
         let bodyData = {
             email:email,
         };
-        
+          sessionStorage.setItem("emailCadastro" , email)
         let existeEmail  =  await fetch("http://localhost:3000/users/find-account", {
         method:"POST",
         headers: {
@@ -33,12 +33,13 @@ class inicioController{
     
     let existeEmailJson = await existeEmail.json()
     
+  
+
     if(existeEmailJson){
         new Navegacao().irParaloginPassword();
        
     }else{
         alert("Email Não cadastrado , crie sua conta !")
-        localStorage.setItem("emailCadastro" , email)
         new Navegacao().irParaSignUp()
     } 
     
