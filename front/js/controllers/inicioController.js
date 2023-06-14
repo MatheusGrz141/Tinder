@@ -4,11 +4,11 @@ class inicioController{
         this.bind()
     }
     bind(){
-     
+        
         document.querySelector("#TurnBack").addEventListener('click',()=>{
             new Navegacao().irParaLogin()
         }) 
-          document.querySelector("#continue").addEventListener("click",()=>{
+        document.querySelector("#continue").addEventListener("click",()=>{
             this.buscarEmail()
             
         })
@@ -20,24 +20,22 @@ class inicioController{
         let bodyData = {
             email:email,
         };
-          sessionStorage.setItem("emailCadastro" , email)
+        
         let existeEmail  =  await fetch("http://localhost:3000/users/find-account", {
         method:"POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
+        headers:  {"Content-Type": "application/json"},
         body:JSON.stringify(bodyData)  
-    }).catch((e)=>{
-        console.log("erro no fetch: "+e)
+        
     })
+    console.log(existeEmail)
     
     let existeEmailJson = await existeEmail.json()
     
-  
-
+    sessionStorage.setItem("emailCadastro" , email)
+    
     if(existeEmailJson){
         new Navegacao().irParaloginPassword();
-       
+        
     }else{
         alert("Email Não cadastrado , crie sua conta !")
         new Navegacao().irParaSignUp()

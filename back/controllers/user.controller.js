@@ -74,13 +74,13 @@ userRouter.post("/sign-in", async (req, res) => {
     
     if(user){
         console.log("user223 ",user)
-
+        
         const token = jwt.sign({  
             email: user.email, 
             id: user._id
         }, secret)
-
-
+        
+        
         return res.send({token: token});
         
     }else{
@@ -93,20 +93,36 @@ userRouter.post("/sign-in", async (req, res) => {
 )  
 
 
-userRouter.post("/find-account",(req,res)=>{
+userRouter.post("/find-account",async (req,res)=>{
     
     let {email} = req.body
     
-    User.findOne({ email }).then((emailAchado) => {
-        if (emailAchado) {
-            console.log("Usuário já cadastrado");
-            return  res.send(true);
-        } else {
-            console.log("usuario nao cadastrado");
-            return res.send(false)
-            
-        }
-    }) 
+    let emailAchado= await User.findOne({ email })
+    
+    if (emailAchado) {
+        console.log("Usuário já cadastrado");
+        return  res.send(true);
+    } else {
+        console.log("usuario nao cadastrado");
+        return res.send(false)
+        
+    }
 })
 
+
+userRouter.post("/get-accounts" ,async(req,res)=>{
+    let Users = [] 
+    let users =[]
+    Users= await User.find({})
+    Users.forEach((user)=>{
+        
+        users.push({ firstName:user.firstName,
+            lastName:user.lastName,
+            avatar:user.avatar 
+        })
+    })
+    console.log(users)
+    return res.send(users)
+    
+})
 module.exports = userRouter;

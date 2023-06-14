@@ -41,7 +41,7 @@ class singUpController{
         formData.append("lastName",lastName)
         formData.append("avatar", this.inputFile.files[0]);   
         formData.append("birthday",birthday)
-        formData.append("email",localStorage.getItem("emailCadastro"))
+        formData.append("email",sessionStorage.getItem("emailCadastro"))
         
         let signUp = await fetch("http://localhost:3000/users/sign-up", {
         method:"POST", 
