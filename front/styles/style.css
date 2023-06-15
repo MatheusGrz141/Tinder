@@ -1,5 +1,5 @@
-*{
-  font-family: 'sk-modernist-bold', sans-serif;
+* {
+  font-family: "sk-modernist-bold", sans-serif;
 }
 form {
   margin: auto;
@@ -11,10 +11,14 @@ form {
 footer {
   position: absolute;
   bottom: 0;
+  max-width: 230px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
 }
 h1 {
   margin-top: 50px;
- 
 }
 #main {
   margin: auto;
@@ -70,16 +74,16 @@ h1 {
   color: #e94057;
   text-decoration: none;
 }
-/* #####tela inicial ################# */
+/* #####tela busca de email ################# */
 #logosigninup {
   margin-top: 100px;
 }
 #logosigninup-h1 {
   margin-top: 100px;
-  
+  font-size: 18px;
 }
 
-/* ######tela inicial fim################ */
+/* ######tela busca de email fim################ */
 
 /* ###onboardin################################################################################# */
 
@@ -90,11 +94,13 @@ h1 {
   display: none;
 }
 .carrosel .imagem.ativa {
+  margin-top: 50px;
   display: flex;
 }
 .botoes-carrossel .botao {
   background: #000000;
   opacity: 0.1;
+  margin-top: 40px;
   width: 15px;
   height: 15px;
   border-radius: 50%;
@@ -110,7 +116,7 @@ h1 {
   font-style: normal;
   font-weight: 700;
   font-size: 24px;
-  line-height: 150%;
+  line-height: 0;
   text-align: center;
   color: #e94057;
 }
@@ -118,17 +124,16 @@ h1 {
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
-  line-height: 150%;
+  line-height: 0px;
   margin: 0;
   color: #323755;
+  background-color: #000000;
+}
+#create-an-account {
+  margin-top: 30px;
 }
 
-.onboardin-radio {
-  background: #e94057;
-  box-shadow: 0px 15px 15px rgba(233, 64, 87, 0.2);
-}
 .onboardin-signin {
-
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -223,13 +228,14 @@ h1 {
   height: 80px;
   display: flex;
   justify-content: space-around;
+
   background: #f3f3f3;
 }
 .footer * {
   background: transparent;
   border: none;
   width: 64px;
-  height: 64px;
+  height: 64px;;
 
   cursor: pointer;
 }

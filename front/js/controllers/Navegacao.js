@@ -21,9 +21,7 @@ class Navegacao{
       matches:{
         controller: new matchesController()
       },
-      signUpPassword:{
-        controller: new signUpPasswordController()
-      },
+     
       loginPassword: {
         controller: new loginPasswordController()
       },

@@ -12,9 +12,9 @@ class loginPasswordView{
         <input id="password"placeholder="Digite Sua Senha" class="text-input" type="password" required>       
         <button type="submit" class="principal-buttons" id="continue">Continue</button>
         </form>
+        </form>
         <footer>
-        <p  class="skip">Terms of use
-        Privacy Policy</p>
+        <p  class="skip">Terms of use</p>  <p  class="skip"> Privacy Policy</p>
         </footer>`
     }
 }

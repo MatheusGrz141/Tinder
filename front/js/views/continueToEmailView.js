@@ -15,8 +15,7 @@ class continueToEmailView{
         
         </form>
         <footer>
-        <p  class="skip">Terms of use
-        Privacy Policy</p>
+        <p  class="skip">Terms of use</p>  <p  class="skip"> Privacy Policy</p>
         </footer>`
         
         
