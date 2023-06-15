@@ -28,6 +28,9 @@ class Navegacao{
       loginPassword: {
         controller: new loginPasswordController()
       },
+      continueToEmail:{
+        controller: new continueToEmailController()
+      },
       mainApp:{
         controller: new mainAppController()
       },
@@ -59,6 +62,9 @@ class Navegacao{
   }
   irParaMatches(){
     this.irPara(this.rotas.matches);
+  }
+  irParaContinueToEmail(){
+    this.irPara(this.rotas.continueToEmail)
   }
   
   

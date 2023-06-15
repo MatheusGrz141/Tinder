@@ -15,12 +15,12 @@ class mainAppController{
     
     
     
-    document.querySelector("#main").innerHTML += new mainAppView( this.mainModel[0]).template();
+    document.querySelector("#main").innerHTML = new mainAppView( this.mainModel[0]).template();
     await this.bind()
 }
 
 bind(){
-    console.log()
+  
     document.querySelector("#matches").addEventListener('click', ()=>{
         new Navegacao().irParaMatches()
     })
@@ -32,25 +32,10 @@ bind(){
     })
 }
 proximoCadastro(){
-    this.i++;
-    if(this.i < this.mainModel.length ){
-        
-        
-        document.querySelector("#main").innerHTML = new mainAppView( this.mainModel[this.i]).template();
-        this.bind()
-        
-        
-    }else{
-       
-         
-    this.i = 0
+    this.i = (this.i + 1) % this.mainModel.length;
     
-    
-    
-    document.querySelector("#main").innerHTML = new mainAppView( this.mainModel[0]).template();
+    document.querySelector("#main").innerHTML = new mainAppView( this.mainModel[this.i]).template();
     this.bind()
-
-    }
     
-} 
+}
 }

@@ -116,12 +116,13 @@ userRouter.post("/get-accounts" ,async(req,res)=>{
     Users= await User.find({})
     Users.forEach((user)=>{
         
-        users.push({ firstName:user.firstName,
+        users.push({ 
+            firstName:user.firstName,
             lastName:user.lastName,
             avatar:user.avatar 
         })
     })
-    console.log(users)
+    
     return res.send(users)
     
 })
