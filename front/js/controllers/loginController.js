@@ -36,6 +36,8 @@ class loginController{
     sessionStorage.setItem("emailCadastro" , email)
     
     if(existeEmailJson){
+        console.log(existeEmailJson.avatar)
+        sessionStorage.setItem("iconAvatar" ,  existeEmailJson.avatar)
         new Navegacao().irParaloginPassword();
         
     }else{

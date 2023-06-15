@@ -31,7 +31,7 @@ class loginPasswordController{
     let token2 = await token.json();
     if(token2){
         
-        sessionStorage.setItem("token" ,token2)
+        sessionStorage.setItem("token" ,token2.token)
         
         console.log("logou")
         

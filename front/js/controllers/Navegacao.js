@@ -9,7 +9,6 @@ class Navegacao{
       login: {
         controller: new loginController()
       },
-      
       signUp: {
         controller: new singUpController()
       },
@@ -31,6 +30,9 @@ class Navegacao{
       continueToEmail:{
         controller: new continueToEmailController()
       },
+      profile:{
+        controller: new profileController()
+      },
       mainApp:{
         controller: new mainAppController()
       },
@@ -51,9 +53,6 @@ class Navegacao{
   irParaSelectInterests() {
     this.irPara(this.rotas.selectInterests);   
   }
-  irParaMainApp(){
-    this.irPara(this.rotas.mainApp);
-  }
   irParaSignUpPassword(){
     this.irPara(this.rotas.signUpPassword)
   }
@@ -66,7 +65,12 @@ class Navegacao{
   irParaContinueToEmail(){
     this.irPara(this.rotas.continueToEmail)
   }
-  
+  irParaProfile(){
+    this.irPara(this.rotas.profile)
+  }
+  irParaMainApp(){
+    this.irPara(this.rotas.mainApp);
+  }
   
   
   irPara(rota) {

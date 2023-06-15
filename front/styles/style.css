@@ -5,11 +5,11 @@ form {
   align-items: center;
   gap: 10px;
 }
-footer{
+footer {
   position: absolute;
   bottom: 0;
 }
-h1{
+h1 {
   margin-top: 50px;
 }
 #main {
@@ -67,10 +67,10 @@ h1{
   text-decoration: none;
 }
 /* #####tela inicial ################# */
-#logosigninup{
+#logosigninup {
   margin-top: 100px;
 }
-#logosigninup-h1{
+#logosigninup-h1 {
   margin-top: 100px;
 }
 
@@ -191,7 +191,7 @@ h1{
   justify-content: space-around;
   gap: 10px;
   align-items: center;
-  margin-bottom: 100PX;
+  margin-bottom: 100px;
 }
 .interactions .interaction {
   background: #ffffff;
@@ -230,6 +230,12 @@ h1{
 
   cursor: pointer;
 }
+
+.footer #iconProfile {
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+}
 /* ###mainAppView Final################ */
 /* ####YourMatches################# */
 .yourMatchs {
@@ -237,7 +243,7 @@ h1{
   flex-direction: row;
 }
 .metch-container {
-  margin:100px 10px ;
+  margin: 100px 10px;
   background-color: #000000;
   border-radius: 16px;
 }
@@ -269,3 +275,14 @@ h1{
   color: white;
 }
 /* ####finalYourMatches################# */
+
+/* #####profile################################## */
+
+#logoProfile {
+  margin-top: 100px;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+}
+
+/* #####profile################################## */

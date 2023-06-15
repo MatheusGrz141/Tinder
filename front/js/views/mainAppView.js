@@ -31,7 +31,7 @@ class mainAppView{
         <footer class="footer">
         <button><img src="./js/imgs/iconHomeSelect.svg" alt=""></button>
         <button id="matches"><img src="./js/imgs/iconMatchs.svg" alt=""></button>
-        <button><img src="./js/imgs/iconProfile.svg" alt=""></button>
+        <button><img id="iconProfile" src="${ sessionStorage.getItem("iconAvatar")}" alt=""></button>
         </footer>`
     }
     

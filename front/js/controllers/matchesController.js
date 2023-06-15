@@ -8,6 +8,10 @@ class matchesController{
         document.querySelector("#home").addEventListener('click',()=>{
             new Navegacao().irParaMainApp();
         })
+        document.querySelector("#iconProfile").addEventListener("click",()=>{
+    
+            new Navegacao().irParaProfile()
+        })
         
     }
 }

@@ -14,32 +14,32 @@ userRouter.post("/update-account" , async(req,res)=>{
     
     let token = req.headers.token;
     const payloadDoToken = await jwt.verify(token, secret);
-    console.log("payloadDoToken ",payloadDoToken)
+    
     
     
     await User.findById(payloadDoToken.id).then((emailAchado) => {
         
-        console.log("emailAchado :",emailAchado)
+        
         if(req.body.iAm){
             emailAchado.iAm = req.body.iAm;   
-            console.log("Entrou no If do iAm")
+            
         }          
         if(req.body.interests ){
             emailAchado.interests  = req.body.interests
-            console.log("Entrou no If do interesse")
+            
         }
         if(req.body.password){
             emailAchado.password =   Base64.stringify(sha256(req.body.password)); 
-            console.log("Entrou no If do password")
+            
         }     
         emailAchado.save().then(()=>{
-            console.log("salvo com sucesso no banco")
+            
         })
         
         return  res.send(true);
         
     }) 
-    console.log("não achemo o cabra")
+    
     return
 })
 
@@ -58,22 +58,22 @@ userRouter.post("/sign-up", upload.single("avatar")  , async (req,res)=>{
             email: user.email, 
             id: user._id
         }, secret);
-        return res.send({token: token});
+        return res.send({token: token ,avatar:avatar});
     }).catch((err)=>{
-        console.log("Usuario não salvo " +err)  
+        
         res.status(401).send({error: "Email ou senha inválido"});
     });  
 })
 userRouter.post("/sign-in", async (req, res) => {
     
     
-    console.log("{email:email,password:password} ",req.body.email,req.body.password)
+    
     password = Base64.stringify(sha256(req.body.password))
     
     let user =  await User.findOne({email:req.body.email,  password:password})
     
     if(user){
-        console.log("user223 ",user)
+        
         
         const token = jwt.sign({  
             email: user.email, 
@@ -84,7 +84,7 @@ userRouter.post("/sign-in", async (req, res) => {
         return res.send({token: token});
         
     }else{
-        console.log("userfalse223 ")
+        
         return res.send(false) 
     }
     
@@ -98,17 +98,32 @@ userRouter.post("/find-account",async (req,res)=>{
     let {email} = req.body
     
     let emailAchado= await User.findOne({ email })
+    console.log("emailAchado "+emailAchado)
     
     if (emailAchado) {
-        console.log("Usuário já cadastrado");
-        return  res.send(true);
+        let user =   {avatar: emailAchado.avatar }
+        return  res.send(user);
     } else {
-        console.log("usuario nao cadastrado");
+        
         return res.send(false)
         
     }
 })
-
+userRouter.delete("/delete-account",async (req,res)=>{
+    console.log("entrou no delete account " )
+    const payloadDoToken = jwt.verify(req.body.token, secret);
+    console.log("payloadDoToken " ,payloadDoToken)
+    const userDeletado = await User.findById(payloadDoToken.id); 
+    console.log("userDeletado " ,userDeletado)
+    if (userDeletado) {
+        userDeletado.deleteOne()
+        return  res.send(true);
+    } else {
+        console.log("entrou no else")
+        return res.send(false)
+        
+    }
+})
 
 userRouter.post("/get-accounts" ,async(req,res)=>{
     let Users = [] 

@@ -1,5 +1,3 @@
-
-
 class selectSexController{
     init(){
         console.log("Entrou no select SEx controller token: "+sessionStorage.getItem("token"))

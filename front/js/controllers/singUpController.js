@@ -49,6 +49,7 @@ class singUpController{
     });
     let signUpJson = await signUp.json()
     if(signUpJson){ 
+        sessionStorage.setItem("iconAvatar" ,  signUpJson.avatar)
         sessionStorage.setItem("token",signUpJson.token)
       
         new Navegacao().irParaSelectSex(); 
