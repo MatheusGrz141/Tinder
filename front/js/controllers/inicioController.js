@@ -9,7 +9,7 @@ class inicioController{
             new Navegacao().irParaContinueToEmail(); 
         });
         document.querySelector("#sign-in").addEventListener("click",()=>{
-            /* this.signIn() */
+     
             new Navegacao().irParaContinueToEmail();
         })
         let botoesCarrosel =  document.querySelectorAll('.botao');
@@ -46,57 +46,21 @@ class inicioController{
         if(!document.querySelector(".carrosel")){
             return
         }
-        let RandomN =  i;/* (Math.floor(Math.random() * 3)) */
-        
-        
+             
         document.querySelector('.selecionado').classList.remove('selecionado');
         document.querySelector('.ativa').classList.remove('ativa');
         
-        
-        
         const imagens = document.querySelectorAll('.imagem');
-        imagens[RandomN].classList.add('ativa');
-        
-        
-        
+        imagens[i].classList.add('ativa');
+       
         let botoesSelecionado = document.querySelectorAll('.botao')
-        botoesSelecionado[RandomN].classList.add('selecionado');
+        botoesSelecionado[i].classList.add('selecionado');
         i = (i + 1) % 3;
         
         setTimeout(()=> {
             clearInterval(this.mudarImagemDeFundoAltomatica(i));
         }, 3000);
     }
-    async signIn(){
-/*         
-        let firstName =  document.querySelector("#firstName").value;
-        let lastName =  document.querySelector("#lastName").value;
-        
-        let bodyData = {
-            firstName:firstName,
-            lastName:lastName
-        };
-        
-        let sessao  =  await fetch("http://localhost:3000/users/sign-in", {
-        method:"POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body:JSON.stringify(bodyData)  
-    }     ).catch((e)=>{
-        console.log("erro no fetch: "+e)
-    })
-    let sessaoTokenJson = await sessao.json();
-    
-    
-    sessionStorage.setItem("token", sessaoTokenJson.token);  
-    new Navegacao().irParaSelectSex(); */
-    
-    
-    
-    
-    
-    new Navegacao().irParaMainApp()
-}
+
 }
 

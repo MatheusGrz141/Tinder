@@ -28,7 +28,7 @@ class profileController{
         body: JSON.stringify(bodyData) 
         
     }).then(()=>{
-        alert("Conta deletada COm sucesso")
+        alert("Conta deletada Com sucesso !!!")
         new Navegacao().irParaInicio()
     })
 }

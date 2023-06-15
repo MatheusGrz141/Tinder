@@ -56,7 +56,7 @@ class selectInterestsController{
         
         
         
-        new Navegacao().irParaSignUpPassword() 
+        new Navegacao().irParaMainApp() 
     }
     
     

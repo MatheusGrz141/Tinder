@@ -34,7 +34,7 @@ class matchesView{
         <footer class="footer">
         <button id="home"><img src="./js/imgs/iconHome.svg" alt=""></button>
         <button id="matches"><img src="./js/imgs/iconMatchsSelect.svg" alt=""></button>
-        <button id ="iconProfile" ><img src="${ sessionStorage.getItem("iconAvatar")}" alt=""></button>
+        <button><img id="iconProfile" src="${sessionStorage.getItem("iconAvatar")}" alt=""></button>
     </footer>
     `
     }

@@ -31,18 +31,22 @@ class singUpController{
         let firstName =  document.querySelector("#firstName").value;
         let lastName =  document.querySelector("#lastName").value;
         let birthday  = document.querySelector("#birthday").value;
-        
-        
+        let password = document.querySelector("#password").value;
+        if(!firstName || !lastName || !password || ! this.inputFile.files[0]){
+            alert("Campos Obrigatórios nao esta preenchidos")
+            return
+        }
         
         
         
         let formData = new FormData();
+        formData.append("password",password)
         formData.append("firstName" ,firstName)
         formData.append("lastName",lastName)
         formData.append("avatar", this.inputFile.files[0]);   
         formData.append("birthday",birthday)
         formData.append("email",sessionStorage.getItem("emailCadastro"))
-        
+         
         let signUp = await fetch("http://localhost:3000/users/sign-up", {
         method:"POST", 
         body:  formData 
@@ -50,6 +54,8 @@ class singUpController{
     let signUpJson = await signUp.json()
     if(signUpJson){ 
         sessionStorage.setItem("iconAvatar" ,  signUpJson.avatar)
+        sessionStorage.setItem("firstName" ,  signUpJson.firstName)
+        sessionStorage.setItem("lastName" ,  signUpJson.lastName)
         sessionStorage.setItem("token",signUpJson.token)
       
         new Navegacao().irParaSelectSex(); 

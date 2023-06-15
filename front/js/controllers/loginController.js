@@ -19,6 +19,11 @@ class loginController{
     
     async buscarEmail(){
         let email= document.querySelector("#email").value
+
+        if(!email){
+            alert ("Digite um email antes de continuar")
+            return
+        }
         let bodyData = {
             email:email,
         };
@@ -29,14 +34,15 @@ class loginController{
         body:JSON.stringify(bodyData)  
         
     })
-    console.log(existeEmail)
+   
     
     let existeEmailJson = await existeEmail.json()
     
     sessionStorage.setItem("emailCadastro" , email)
     
     if(existeEmailJson){
-        console.log(existeEmailJson.avatar)
+        sessionStorage.setItem("firstName" ,  existeEmailJson.firstName)
+        sessionStorage.setItem("lastName" ,  existeEmailJson.lastName)
         sessionStorage.setItem("iconAvatar" ,  existeEmailJson.avatar)
         new Navegacao().irParaloginPassword();
         

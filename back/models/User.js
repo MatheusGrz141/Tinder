@@ -5,10 +5,10 @@ const userSchema = new mongoose.Schema({
     password:String,
     firstName: String,
     lastName:String,
-    birthday:Date,
+    birthday:String ,
     avatar:String,
     iAm: String,
-    dateNow:{ type: Date, default: Date.now() },
+    dateNow:{ type: String, default: Date.now() },
     interests: {type: [String]},
     
 })

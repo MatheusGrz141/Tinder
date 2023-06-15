@@ -35,7 +35,8 @@ class mainAppController{
         this.users =   await fetch('http://localhost:3000/users/get-accounts' ,{
         method:"POST",
         headers:{
-            "Content-Type":"application/json"
+            "Content-Type":"application/json",
+            "token": sessionStorage.getItem("token")
         }
     })}
     
