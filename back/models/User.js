@@ -8,8 +8,10 @@ const userSchema = new mongoose.Schema({
     birthday:String ,
     avatar:String,
     iAm: String,
-    dateNow:{ type: String, default: Date.now() },
+    dateNow:{ type: Date, default: Date.now() },
     interests: {type: [String]},
+    mymatchs: {type: [String]},
+    matchsForMe: {type: [String]},
     
 })
 const User =  mongoose.model("User" ,userSchema)
