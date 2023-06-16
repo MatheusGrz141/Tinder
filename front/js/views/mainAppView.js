@@ -17,9 +17,9 @@ class mainAppView{
         <img class="img-user"src="${ this.mainModel.avatar} " alt="imagem de um usuário">
         ${ this.mainModel.firstName} ${ this.mainModel.lastName} 
         <div class="interactions"> 
-        <button class="interaction" data-userid="${this.mainModel.id}"  ><img src="./js/imgs/iconCros.svg" alt=""></button>
-        <button class="heart" data-userid="${this.mainModel.id}" ><img src="./js/imgs/iconHeart.svg" alt=""></button>
-        <button class="interaction" data-userid="${this.mainModel.id}" ><img src="./js/imgs/iconStar.svg" alt=""></button>
+        <button class="interaction" data-userid="${this.mainModel.id}"  ><img data-userid="${this.mainModel.id}" src="./js/imgs/iconCros.svg" alt="iconCros"></button>
+        <button class="heart" data-userid="${this.mainModel.id}" ><img data-userid="${this.mainModel.id}" src="./js/imgs/iconHeart.svg" alt="iconHeart"></button>
+        <button class="interaction" data-userid="${this.mainModel.id}" ><img data-userid="${this.mainModel.id}" src="./js/imgs/iconStar.svg" alt="iconStar"></button>
         
         
         </div>

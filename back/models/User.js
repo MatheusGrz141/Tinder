@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
     dateNow:{ type: Date, default: Date.now() },
     interests: {type: [String]},
     mymatchs: {type: [String]},
-    matchsForMe: {type: [String]},
+  
     
 })
 const User =  mongoose.model("User" ,userSchema)

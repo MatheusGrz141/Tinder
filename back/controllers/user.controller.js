@@ -40,10 +40,10 @@ userRouter.post("/update-account" , async(req,res)=>{
 })
 
 userRouter.post("/sign-up", upload.single("avatar")  , async (req,res)=>{
-
+    
     let avatar = `http://localhost:3000/${req.file.path}`;
     let password = Base64.stringify(sha256(req.body.password));
-
+    
     new mongoose.model('User')({ 
         avatar:avatar,
         email:req.body.email,
@@ -53,12 +53,12 @@ userRouter.post("/sign-up", upload.single("avatar")  , async (req,res)=>{
         password : password  ,
     }).save().then((user)=>{
         
-       
+        
         const token = jwt.sign({  
             email: user.email, 
             id: user._id
         }, secret); 
-      
+        
         return res.send({token: token ,avatar:user.avatar ,firstName:user.firstName, lastName:user.lastName});
     }).catch((err)=>{
         
@@ -99,7 +99,7 @@ userRouter.post("/find-account",async (req,res)=>{
     let {email} = req.body
     
     let emailAchado= await User.findOne({ email })
-
+    
     
     if (emailAchado) {
         let user =   {avatar: emailAchado.avatar ,firstName: emailAchado.firstName , lastName:emailAchado.lastName}
@@ -127,14 +127,14 @@ userRouter.delete("/delete-account",async (req,res)=>{
 })
 
 userRouter.post("/get-accounts" ,async(req,res)=>{
-
+    
     const payloadDoToken = jwt.verify(req.headers.token, secret);
     
     const user= await User.findById(payloadDoToken.id);
     
     let userInterests  = user.interests;
-
-
+    
+    
     let Users = [] 
     let users =[]
     Users= await User.find({interests:{$in :userInterests}})
@@ -150,5 +150,23 @@ userRouter.post("/get-accounts" ,async(req,res)=>{
     console.log(users)
     return res.send(users)
     
+})
+userRouter.post("/match",async(req,res)=>{
+    
+    let token = req.headers.token
+    const payloadDoToken = jwt.verify(token, secret);
+    
+    await User.findById(payloadDoToken.id).then((userAchado)=>{
+        
+
+        userAchado.mymatchs.push(req.body.id)
+        userAchado.save()
+        return  res.send(true)
+
+    }).catch(()=>{
+        return  res.send(false) 
+        
+    })
+   
 })
 module.exports = userRouter;
