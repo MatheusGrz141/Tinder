@@ -124,79 +124,80 @@ userRouter.post("/get-accounts" ,authMiddleWare ,async(req,res)=>{
     Users= await User.find({interests:{$in :userInterests}})
     Users.forEach((user)=>{
         if (payloadDoToken.id != user._id){
-        users.push({
-            id:user._id, 
-            firstName:user.firstName,
-            lastName:user.lastName,
-            avatar:user.avatar 
-        })}
+            users.push({
+                id:user._id, 
+                firstName:user.firstName,
+                lastName:user.lastName,
+                avatar:user.avatar 
+            })}
+        })
+        console.log(users)
+        return res.send(users)
+        
     })
-    console.log(users)
-    return res.send(users)
-    
-})
-userRouter.post("/match", authMiddleWare ,async(req,res)=>{
-    
-    let token = req.headers.token
-    const payloadDoToken = jwt.verify(token, secret);
-    
-    let userAchado = await User.findById(payloadDoToken.id)
-    
-    if(userAchado){
-        console.log("entrou no then")
-        let id =  req.body.id;
+    userRouter.post("/match", authMiddleWare ,async(req,res)=>{
         
-        let user = userAchado.mymatchs.find(match =>match==id)
-        console.log(" user id" , user ,"  ", id)
-        console.log(" user == id" , user == id)
+        let token = req.headers.token
+        const payloadDoToken = jwt.verify(token, secret);
         
-        if (!user && payloadDoToken.id != id){
-            userAchado.mymatchs.push(id)
-            userAchado.save() 
-            console.log("user ",userAchado.mymatchs)
-            return  res.send(true)  
+        let userAchado = await User.findById(payloadDoToken.id)
+        
+        if(userAchado){
+            console.log("entrou no then")
+            let id =  req.body.id;
+            
+            let user = userAchado.mymatchs.find(match =>match==id)
+            console.log(" user id" , user ,"  ", id)
+            console.log(" user == id" , user == id)
+            
+            if (!user && payloadDoToken.id != id){
+                userAchado.mymatchs.push(id)
+                userAchado.save() 
+                console.log("user ",userAchado.mymatchs)
+                return  res.send(true)  
+                
+            }else{
+                console.log("vc ja deu match nessa pessoa")
+                return  res.send(false) 
+                
+            }
+            
             
         }else{
-            console.log("vc ja deu match nessa pessoa")
+            console.log("entrou no catch")
             return  res.send(false) 
             
         }
         
+    })
+    userRouter.post("/matchs", authMiddleWare, async (req, res) => {
+        const payloadDoToken = jwt.verify(req.headers.token, secret);
         
-    }else{
-        console.log("entrou no catch")
-        return  res.send(false) 
+        /*  const userAchado = await User.findById(payloadDoToken.id);
+        const mymatchs = userAchado.mymatchs;
         
-    }
+        
+        console.log("meu id ", payloadDoToken.id);
+        console.log("os praga que eu curti ", mymatchs); */
+        const users = [];
+        const mymatchs  = await User.find({});
+        for (const match of mymatchs) {
+            /*  const userMatch = await User.findById(match); */
+            const deuMatch = match.mymatchs.includes(payloadDoToken.id);
+            
+            if (deuMatch) {
+                
+                users.push({
+                    match
+                   
+                });
+            }
+        }
+        
+        console.log("os praga que me curtiro ", users);
+        return res.send(users);
+    });
     
-})
-userRouter.post("/matchs", authMiddleWare, async (req, res) => {
-    const payloadDoToken = jwt.verify(req.headers.token, secret);
-  
-    const userAchado = await User.findById(payloadDoToken.id);
-    const mymatchs = userAchado.mymatchs;
-  
-    const users = [];
-    console.log("meu id ", payloadDoToken.id);
-    console.log("os praga que eu curti ", mymatchs);
-  
-    for (const match of mymatchs) {
-      const userMatch = await User.findById(match);
-      const deuMatch = userMatch.mymatchs.includes(payloadDoToken.id);
-  
-      if (deuMatch) {
-        console.log("userMatch ", userMatch.firstName);
-        users.push({
-          firstName: userMatch.firstName,
-          lastName: userMatch.lastName,
-          avatar: userMatch.avatar,
-        });
-      }
-    }
-  
-    console.log("os praga que me curtiro ", users);
-    return res.send(users);
-  });
-  
-
-module.exports = userRouter;
+    
+    module.exports = userRouter;
+    

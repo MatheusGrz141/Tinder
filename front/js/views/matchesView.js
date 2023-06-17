@@ -8,8 +8,8 @@ class matchesView{
         this.matchs.forEach(element => {
             main += ` 
             <div class="match-container">
-            <h1>${element.firstName} ${element.lastName}</h1>
-            <img class="img-user"src="${element.avatar}" alt="imagem de um usuário">
+            <h1>${element.match.firstName} ${element.match.lastName}</h1>
+            <img class="img-user"src="${element.match.avatar}" alt="imagem de um usuário">
             <div class="matchs-interactions"> 
             <button class="interaction"><img src="./js/imgs/iconCrossMatchs.svg" alt=""></button>
             <img src="./js/imgs/iconDivider.svg" alt="">
