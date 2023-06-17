@@ -5,30 +5,35 @@ class mainAppController{
         await this.fetchUsers();    
         this.mainModel = await this.users.json()  
         this.index = 0
-      
+        
         document.querySelector("#main").innerHTML =  await new  mainAppView( this.mainModel[0]).template();
-       
+        
         this.bind()
     }
     
     bind(){
         
+        if(!this.mainModel){
+            
+            
+            document.querySelector('.interaction').addEventListener('click',()=>{
+                this.proximoCadastro()
+            })
+            
+            document.querySelector(".heart").addEventListener("click",  (e)=>{
+                let userId = e.target.dataset.userid ;
+                
+                this.clickMatch(userId) 
+                this.proximoCadastro()  
+            })
+        } 
         document.querySelector("#matches").addEventListener('click', ()=>{
             new Navegacao().irParaMatches()
         })
-        document.querySelector('.interaction').addEventListener('click',()=>{
-            this.proximoCadastro()
-        }) 
-        document.querySelector(".heart").addEventListener("click",  (e)=>{
-            let userId = e.target.dataset.userid ;
-           
-             this.clickMatch(userId) 
-              this.proximoCadastro()  
-        })
         document.querySelector("#iconProfile").addEventListener("click",()=>{
-            
             new Navegacao().irParaProfile()
         })
+        
         document.querySelector(".skip").addEventListener("click",()=>{
             
             new Navegacao().irParaProfile()
@@ -50,10 +55,10 @@ class mainAppController{
     })}
     async clickMatch(id){
         
-          let bodyData ={
+        let bodyData ={
             id:id
-          }
-
+        }
+        
         await fetch("http://localhost:3000/users/match" , {
         method:"POST",
         headers:{
@@ -66,9 +71,9 @@ class mainAppController{
     
 }
 async proximoCadastro(){
-  
+    
     this.index = (this.index + 1) % this.mainModel.length;
-        document.querySelector("#main").innerHTML = await new mainAppView( this.mainModel[this.index]).template();
+    document.querySelector("#main").innerHTML = await new mainAppView( this.mainModel[this.index]).template();
     this.bind()
     
 }

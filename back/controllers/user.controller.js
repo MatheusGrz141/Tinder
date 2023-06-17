@@ -123,13 +123,13 @@ userRouter.post("/get-accounts" ,authMiddleWare ,async(req,res)=>{
     let users =[]
     Users= await User.find({interests:{$in :userInterests}})
     Users.forEach((user)=>{
-        
+        if (payloadDoToken.id != user._id){
         users.push({
             id:user._id, 
             firstName:user.firstName,
             lastName:user.lastName,
             avatar:user.avatar 
-        })
+        })}
     })
     console.log(users)
     return res.send(users)
@@ -147,10 +147,10 @@ userRouter.post("/match", authMiddleWare ,async(req,res)=>{
         let id =  req.body.id;
         
         let user = userAchado.mymatchs.find(match =>match==id)
+        console.log(" user id" , user ,"  ", id)
+        console.log(" user == id" , user == id)
         
-        
-        
-        if (!user){
+        if (!user && payloadDoToken.id != id){
             userAchado.mymatchs.push(id)
             userAchado.save() 
             console.log("user ",userAchado.mymatchs)
