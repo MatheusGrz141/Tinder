@@ -36,7 +36,6 @@ userRouter.post("/update-account" , async(req,res)=>{
     console.log ("deu erro pra achar o cabra")
     return
 })
-
 userRouter.post("/sign-up", upload.single("avatar")  , async (req,res)=>{
     
     let avatar = `http://localhost:3000/${req.file.path}`;
@@ -79,10 +78,7 @@ userRouter.post("/sign-in", async (req, res) => {
     }else{
         return res.send(false) 
     }
-}
-)  
-
-
+})  
 userRouter.post("/find-account",async (req,res)=>{
     
     let {email} = req.body
@@ -114,8 +110,7 @@ userRouter.delete("/delete-account",async (req,res)=>{
         
     }
 })
-
-userRouter.post("/get-accounts" ,async(req,res)=>{
+userRouter.post("/get-accounts" ,authMiddleWare ,async(req,res)=>{
     
     const payloadDoToken = jwt.verify(req.headers.token, secret);
     
@@ -140,7 +135,7 @@ userRouter.post("/get-accounts" ,async(req,res)=>{
     return res.send(users)
     
 })
-userRouter.post("/match",async(req,res)=>{
+userRouter.post("/match", authMiddleWare ,async(req,res)=>{
     
     let token = req.headers.token
     const payloadDoToken = jwt.verify(token, secret);
@@ -150,21 +145,21 @@ userRouter.post("/match",async(req,res)=>{
     if(userAchado){
         console.log("entrou no then")
         let id =  req.body.id;
-
-       let user = userAchado.mymatchs.find(match =>match==id)
-     
-      
+        
+        let user = userAchado.mymatchs.find(match =>match==id)
+        
+        
         
         if (!user){
-             userAchado.mymatchs.push(id)
+            userAchado.mymatchs.push(id)
             userAchado.save() 
             console.log("user ",userAchado.mymatchs)
             return  res.send(true)  
-           
+            
         }else{
             console.log("vc ja deu match nessa pessoa")
             return  res.send(false) 
-           
+            
         }
         
         
@@ -173,6 +168,34 @@ userRouter.post("/match",async(req,res)=>{
         return  res.send(false) 
         
     }
+    
+})
+userRouter.post("/matchs" ,authMiddleWare ,async (req,res)=>{
+    const payloadDoToken = jwt.verify(req.headers.token, secret);
+    
+    const userAchado= await User.findById(payloadDoToken.id);
+    let mymatchs = userAchado.mymatchs
+    
+    let user = [];
+    console.log("meu id " ,payloadDoToken.id)
+    console.log("os praga que eu curti ",mymatchs)
+    mymatchs.forEach(async (match)=>{
+        
+        await User.findById(match).then(async(userMatch)=>{
+          
+            let deuMatch =  await userMatch.mymatchs.find(match =>match===payloadDoToken.id)
+            
+            if(deuMatch){
+                console.log("userMatch ",userMatch)
+                user.push(userMatch) 
+            }
+           
+        } )
+    })
+    console.log("os praga que me curtiro ",user)
+    return res.send(user)
+    
+    
     
 })
 module.exports = userRouter;

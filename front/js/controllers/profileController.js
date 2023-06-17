@@ -18,13 +18,16 @@ class profileController{
     }
     async deletarConta(){
         console.log(sessionStorage.getItem('token'))
-       let token = sessionStorage.getItem('token')
+        let token = sessionStorage.getItem('token')
         let bodyData ={
             token
         }
         await fetch("http://localhost:3000/users/delete-account" ,{
         method:"DELETE",
-        headers:{"Content-Type":"application/json"},
+        headers:{
+            "Content-Type":"application/json",
+            "token":sessionStorage.getItem("token")
+        },
         body: JSON.stringify(bodyData) 
         
     }).then(()=>{

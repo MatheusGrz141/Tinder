@@ -66,10 +66,9 @@ class mainAppController{
     
 }
 async proximoCadastro(){
+  
     this.index = (this.index + 1) % this.mainModel.length;
-    
-    
-    document.querySelector("#main").innerHTML = await new mainAppView( this.mainModel[this.index]).template();
+        document.querySelector("#main").innerHTML = await new mainAppView( this.mainModel[this.index]).template();
     this.bind()
     
 }
