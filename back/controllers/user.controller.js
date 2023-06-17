@@ -15,8 +15,6 @@ userRouter.post("/update-account" , async(req,res)=>{
     let token = req.headers.token;
     const payloadDoToken = await jwt.verify(token, secret);
     
-    
-    
     await User.findById(payloadDoToken.id).then((emailAchado) => {
         console.log(" entrou no then email achado")
         
@@ -67,29 +65,20 @@ userRouter.post("/sign-up", upload.single("avatar")  , async (req,res)=>{
 })
 userRouter.post("/sign-in", async (req, res) => {
     
-    
-    
     password = Base64.stringify(sha256(req.body.password))
     
     let user =  await User.findOne({email:req.body.email,  password:password})
     
     if(user){
         
-        
         const token = jwt.sign({  
             email: user.email, 
             id: user._id
         }, secret)
-        
-        
         return res.send({token: token});
-        
     }else{
-        
         return res.send(false) 
     }
-    
-    
 }
 )  
 
@@ -156,17 +145,34 @@ userRouter.post("/match",async(req,res)=>{
     let token = req.headers.token
     const payloadDoToken = jwt.verify(token, secret);
     
-    await User.findById(payloadDoToken.id).then((userAchado)=>{
+    let userAchado = await User.findById(payloadDoToken.id)
+    
+    if(userAchado){
+        console.log("entrou no then")
+        let id =  req.body.id;
+
+       let user = userAchado.mymatchs.find(match =>match==id)
+     
+      
         
-
-        userAchado.mymatchs.push(req.body.id)
-        userAchado.save()
-        return  res.send(true)
-
-    }).catch(()=>{
+        if (!user){
+             userAchado.mymatchs.push(id)
+            userAchado.save() 
+            console.log("user ",userAchado.mymatchs)
+            return  res.send(true)  
+           
+        }else{
+            console.log("vc ja deu match nessa pessoa")
+            return  res.send(false) 
+           
+        }
+        
+        
+    }else{
+        console.log("entrou no catch")
         return  res.send(false) 
         
-    })
-   
+    }
+    
 })
 module.exports = userRouter;
