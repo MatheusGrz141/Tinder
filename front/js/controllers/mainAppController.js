@@ -13,7 +13,7 @@ class mainAppController{
     
     bind(){
         
-        if(!this.mainModel){
+        if(this.mainModel){
             
             
             document.querySelector('.interaction').addEventListener('click',()=>{
@@ -21,6 +21,7 @@ class mainAppController{
             })
             
             document.querySelector(".heart").addEventListener("click",  (e)=>{
+               alert("uagsoua")
                 let userId = e.target.dataset.userid ;
                 
                 this.clickMatch(userId) 
