@@ -170,32 +170,33 @@ userRouter.post("/match", authMiddleWare ,async(req,res)=>{
     }
     
 })
-userRouter.post("/matchs" ,authMiddleWare ,async (req,res)=>{
+userRouter.post("/matchs", authMiddleWare, async (req, res) => {
     const payloadDoToken = jwt.verify(req.headers.token, secret);
-    
-    const userAchado= await User.findById(payloadDoToken.id);
-    let mymatchs = userAchado.mymatchs
-    
-    let user = [];
-    console.log("meu id " ,payloadDoToken.id)
-    console.log("os praga que eu curti ",mymatchs)
-    mymatchs.forEach(async (match)=>{
-        
-        await User.findById(match).then(async(userMatch)=>{
-          
-            let deuMatch =  await userMatch.mymatchs.find(match =>match===payloadDoToken.id)
-            
-            if(deuMatch){
-                console.log("userMatch ",userMatch)
-                user.push(userMatch) 
-            }
-           
-        } )
-    })
-    console.log("os praga que me curtiro ",user)
-    return res.send(user)
-    
-    
-    
-})
+  
+    const userAchado = await User.findById(payloadDoToken.id);
+    const mymatchs = userAchado.mymatchs;
+  
+    const users = [];
+    console.log("meu id ", payloadDoToken.id);
+    console.log("os praga que eu curti ", mymatchs);
+  
+    for (const match of mymatchs) {
+      const userMatch = await User.findById(match);
+      const deuMatch = userMatch.mymatchs.includes(payloadDoToken.id);
+  
+      if (deuMatch) {
+        console.log("userMatch ", userMatch.firstName);
+        users.push({
+          firstName: userMatch.firstName,
+          lastName: userMatch.lastName,
+          avatar: userMatch.avatar,
+        });
+      }
+    }
+  
+    console.log("os praga que me curtiro ", users);
+    return res.send(users);
+  });
+  
+
 module.exports = userRouter;
