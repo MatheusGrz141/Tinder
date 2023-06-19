@@ -1,6 +1,6 @@
 
 class loginController{
-
+    
     init(){
         document.querySelector("#main").innerHTML =new  inicioView().template()
         this.bind()
@@ -19,7 +19,7 @@ class loginController{
     
     async buscarEmail(){
         let email= document.querySelector("#email").value
-
+        
         if(!email){
             alert ("Digite um email antes de continuar")
             return
@@ -34,8 +34,9 @@ class loginController{
         body:JSON.stringify(bodyData)  
         
     })
-   
-    
+
+  
+
     let existeEmailJson = await existeEmail.json()
     
     sessionStorage.setItem("emailCadastro" , email)
@@ -54,5 +55,5 @@ class loginController{
 }
 
 
-   
+
 }

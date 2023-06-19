@@ -1,11 +1,11 @@
 
 class profileController{
-    constructor(model){
-        this.model = model
+    constructor(){
+     
     }
     init(){
         
-        document.querySelector("#main").innerHTML =  new profileView(this.model).template()
+        document.querySelector("#main").innerHTML =  new profileView().template()
         this.bind()
     }
     bind(){

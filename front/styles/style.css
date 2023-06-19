@@ -18,6 +18,7 @@ footer {
   justify-content: space-between;
 }
 h1 {
+  font-weight: bold;
   margin-top: 70px;
 }
 #main {
@@ -72,6 +73,10 @@ h1 {
   justify-content: space-between;
   align-items: center;
   height: 52px;
+}
+.head .city-and-name {
+  text-align: center;
+  margin-bottom: 20px;
 }
 .skip {
   color: #e94057;
@@ -253,17 +258,14 @@ h1 {
 /* ####YourMatches################# */
 .yourMatchs {
   min-width: 400px;
- 
+
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin: auto ;
+  margin: auto;
   justify-content: center;
 }
 .match-container {
- 
-  width: 40%;
- 
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -287,7 +289,6 @@ h1 {
   gap: 10px;
   background-color: #000000;
   opacity: 0.4;
-
 }
 .yourMatchs .matchs-interactions .interaction {
   background: transparent;
@@ -295,13 +296,11 @@ h1 {
   width: 100%;
   box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.07);
   cursor: pointer;
-
 }
 .yourMatchs .matchs-interactions .interaction * {
   background: transparent;
   border: none;
   width: 50px;
-
 }
 /* ####finalYourMatches################# */
 
@@ -315,3 +314,22 @@ h1 {
 }
 
 /* #####profile################################## */
+/* ########itsaMatch inicio################################ */
+.keep-swiping {
+color: #e94057;
+  background-color: #e9405748;
+  margin-bottom: 50px;
+}
+.imgs-matchs {
+  display: flex;
+}
+
+.imgs-matchs .img-user.left {
+z-index: 1;
+  transform: rotate(-10deg);
+}
+.imgs-matchs .img-user.rigth {
+  transform: rotate(10deg);
+}
+
+/* ########itsaMatch fim################################ */

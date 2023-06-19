@@ -1,10 +1,10 @@
 class mainAppController{
     async init(){
-        
+          this.index = 0
         this.users= []
         await this.fetchUsers();    
         this.mainModel = await this.users.json()  
-        this.index = 0
+      
         
         document.querySelector("#main").innerHTML =  await new  mainAppView( this.mainModel[0]).template();
         

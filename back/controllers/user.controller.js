@@ -110,7 +110,7 @@ userRouter.delete("/delete-account",async (req,res)=>{
         
     }
 })
-userRouter.post("/get-accounts" ,authMiddleWare ,async(req,res)=>{
+userRouter.post("/get-accounts" , authMiddleWare ,async(req,res)=>{
     
     const payloadDoToken = jwt.verify(req.headers.token, secret);
     

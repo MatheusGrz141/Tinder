@@ -7,9 +7,10 @@ class mainAppView{
         if( !this.mainModel ){
             return `<div class="head"> 
             <a id="TurnBack" href="#"><img src="./js/imgs/iconTurnBack.svg" alt="Turn Back"></a>
+            <div class="city-and-name"> 
             <h1>Discover</h1>
             <p>Chicago ,II</p>
-            
+            </div>
             <a class="skip" href="#"><img src="./js/imgs/iconConfig.svg" alt="Profile"></a>
             </div>
             
@@ -23,14 +24,14 @@ class mainAppView{
             `
         }
         return ` 
-        
         <div class="head"> 
-        <a id="TurnBack" href="#"><img src="./js/imgs/iconTurnBack.svg" alt="Turn Back"></a>
-        <h1>Discover</h1>
-        <p>Chicago ,II</p>
-        
-        <a class="skip" href="#"><img src="./js/imgs/iconConfig.svg" alt="Profile"></a>
-        </div>
+            <a id="TurnBack" href="#"><img src="./js/imgs/iconTurnBack.svg" alt="Turn Back"></a>
+            <div class="city-and-name"> 
+            <h1>Discover</h1>
+            <p>Chicago ,II</p>
+            </div>
+            <a class="skip" href="#"><img src="./js/imgs/iconConfig.svg" alt="Profile"></a>
+            </div>
         
         <img class="img-user"src="${ this.mainModel.avatar} " alt="imagem de um usuário">
         ${ this.mainModel.firstName} ${ this.mainModel.lastName} 

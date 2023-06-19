@@ -1,8 +1,8 @@
 class profileView{
     
-    constructor(model){
-        this.model =model
-        this.user =  sessionStorage.getItem("iconAvatar")
+    constructor(){
+   
+        this.avatar =  sessionStorage.getItem("iconAvatar")
         this.firstName  = sessionStorage.getItem("firstName")
         this.lastName =  sessionStorage.getItem("lastName")
     }
@@ -18,7 +18,7 @@ class profileView{
         
         </div>
         <h1 id="logosigninup-h1" >Profile</h1>
-        <img id="logoProfile" src="${this.user}" alt="">
+        <img id="logoProfile" src="${this.avatar}" alt="">
         <h2 id="nameUser" >${this.firstName} ${this.lastName}</h1>
         
         

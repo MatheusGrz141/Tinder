@@ -15,7 +15,7 @@ class inicioView{
         <input id="email"placeholder="Continue with email" class="text-input" type="email" required>
         <button type="submit" class="principal-buttons" id="continue">Continue</button>
         
-        </form>
+        
         </form>
         <footer>
         <p  class="skip">Terms of use</p>  <p  class="skip"> Privacy Policy</p>

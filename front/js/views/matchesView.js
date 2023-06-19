@@ -5,15 +5,16 @@ class matchesView{
     template(){
         
         let main = ``
-        this.matchs.forEach(element => {
+        this.matchs.forEach((element)=> {
             main += ` 
+           
             <div class="match-container">
             <h1>${element.match.firstName} ${element.match.lastName}</h1>
-            <img class="img-user"src="${element.match.avatar}" alt="imagem de um usuário">
+            <img id="${element.match._id}" class="img-user"src="${element.match.avatar}" alt="imagem de um usuário">
             <div class="matchs-interactions"> 
-            <button class="interaction"><img src="./js/imgs/iconCrossMatchs.svg" alt=""></button>
+            <button class="interaction cross"><img src="./js/imgs/iconCrossMatchs.svg" alt=""></button>
             <img src="./js/imgs/iconDivider.svg" alt="">
-            <button class="interaction"><img src="./js/imgs/iconHeart.svg" alt=""></button>
+            <button class="interaction heart" data-index="${element.match._id}" ><img data-index="${element.match._id}" src="./js/imgs/iconHeart.svg" alt=""></button>
             </div>
             
             </div>`

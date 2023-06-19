@@ -10,14 +10,24 @@ class matchesController{
     }
     bind(){
         
-  
-            document.querySelector("#home").addEventListener('click',()=>{
-                new Navegacao().irParaMainApp();
+        
+        document.querySelector("#home").addEventListener('click',()=>{
+            new Navegacao().irParaMainApp();
+        })
+        document.querySelector("#iconProfile").addEventListener("click",()=>{
+            
+            new Navegacao().irParaProfile()
+        })
+        document.querySelectorAll(".heart").forEach((button)=>{
+            button.addEventListener("click" ,(e)=>{
+            
+        
+    let imgItsAMatch =  document.getElementById(e.target.dataset.index)
+console.log( imgItsAMatch.src)
+               sessionStorage.setItem("imgItsAMatch" ,imgItsAMatch.src ) 
+                   new Navegacao().irParaItsAMAtch() 
             })
-            document.querySelector("#iconProfile").addEventListener("click",()=>{
-                
-                new Navegacao().irParaProfile()
-            })
+        })
         
     }
     async buscaOsMatchs(){

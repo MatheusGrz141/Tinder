@@ -31,6 +31,9 @@ class Navegacao{
       profile:{
         controller: new profileController()
       },
+      itsAMAtch:{
+        controller: new itsAMAtchController()
+      },
       mainApp:{
         controller: new mainAppController()
       },
@@ -65,6 +68,9 @@ class Navegacao{
   }
   irParaProfile(){
     this.irPara(this.rotas.profile)
+  }
+  irParaItsAMAtch(){
+    this.irPara(this.rotas.itsAMAtch)
   }
   irParaMainApp(){
     this.irPara(this.rotas.mainApp);
