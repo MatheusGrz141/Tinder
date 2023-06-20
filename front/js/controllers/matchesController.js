@@ -2,7 +2,7 @@ class matchesController{
     async init(){
         
         await this.buscaOsMatchs();
-        console.log("this.matchs ",this.matchs)
+        
         
         
         document.querySelector("#main").innerHTML = new matchesView(this.matchs).template()
@@ -31,11 +31,9 @@ class matchesController{
         document.querySelectorAll(".cross").forEach((button)=>{
             button.addEventListener("click" ,(e)=>{
                 
-                
                 let id =  e.target.dataset.index
-                console.log(id)
-                this.clickCross(id)
-                /* new Navegacao().irParaMatches()   */
+                this.removeMatch(id)
+                new Navegacao().irParaMatches()
             })
         })
         
@@ -53,23 +51,18 @@ class matchesController{
         
         
     }
-    async clickCross(id){
-       
+    async removeMatch(id){
+     
         let bodyData={
-            id
-        }
-        await fetch ("http://localhost:3000/users/cross" ,{
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json",
+            id ,
             token:sessionStorage.getItem("token")
-        },
+        }
+        await fetch ("http://localhost:3000/users/remove-match" ,{
+        method:"DELETE",
+        headers:{"Content-Type":"application/json"},
         body:JSON.stringify(bodyData)
-    }).then(()=>{
-        
-        console.log("deu certo em clicar no X e adicionar o cabra no Array")
-    }).catch((err)=>{
-        console.log("erro ",err)
     })
+
+
 }
-}
+}    
