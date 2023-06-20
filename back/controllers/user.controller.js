@@ -129,75 +129,117 @@ userRouter.post("/get-accounts" , authMiddleWare ,async(req,res)=>{
                 firstName:user.firstName,
                 lastName:user.lastName,
                 avatar:user.avatar 
-            })}
-        })
-        console.log(users)
-        return res.send(users)
-        
+            })
+        }
     })
-    userRouter.post("/match", authMiddleWare ,async(req,res)=>{
+
+    return res.send(users)
+    
+})
+userRouter.post("/match", authMiddleWare ,async(req,res)=>{
+    
+    let token = req.headers.token
+    const payloadDoToken = jwt.verify(token, secret);
+    
+    let userAchado = await User.findById(payloadDoToken.id)
+    
+    if(userAchado){
+        console.log("entrou no then")
+        let id =  req.body.id;
         
-        let token = req.headers.token
-        const payloadDoToken = jwt.verify(token, secret);
+        let user = userAchado.mymatchs.find(match =>match==id)
+        console.log(" user id" , user ,"  ", id)
+        console.log(" user == id" , user == id)
         
-        let userAchado = await User.findById(payloadDoToken.id)
-        
-        if(userAchado){
-            console.log("entrou no then")
-            let id =  req.body.id;
-            
-            let user = userAchado.mymatchs.find(match =>match==id)
-            console.log(" user id" , user ,"  ", id)
-            console.log(" user == id" , user == id)
-            
-            if (!user && payloadDoToken.id != id){
-                userAchado.mymatchs.push(id)
-                userAchado.save() 
-                console.log("user ",userAchado.mymatchs)
-                return  res.send(true)  
-                
-            }else{
-                console.log("vc ja deu match nessa pessoa")
-                return  res.send(false) 
-                
-            }
-            
+        if (!user && payloadDoToken.id != id){
+            userAchado.mymatchs.push(id)
+            userAchado.save() 
+            console.log("user ",userAchado.mymatchs)
+            return  res.send(true)  
             
         }else{
-            console.log("entrou no catch")
+            console.log("vc ja deu match nessa pessoa")
             return  res.send(false) 
             
         }
         
-    })
-    userRouter.post("/matchs", authMiddleWare, async (req, res) => {
-        const payloadDoToken = jwt.verify(req.headers.token, secret);
         
-        /*  const userAchado = await User.findById(payloadDoToken.id);
-        const mymatchs = userAchado.mymatchs;
+    }else{
+        console.log("entrou no catch")
+        return  res.send(false) 
         
+    }
+    
+})
+userRouter.post("/matchs", authMiddleWare, async (req, res) => {
+    const payloadDoToken = jwt.verify(req.headers.token, secret);
+    
+    /*  const userAchado = await User.findById(payloadDoToken.id);
+    const mymatchs = userAchado.mymatchs;
+    
+    
+    console.log("meu id ", payloadDoToken.id);
+    console.log("os praga que eu curti ", mymatchs); */
+    const users = [];
+    const mymatchs  = await User.find({});
+    for (const match of mymatchs) {
+        /*  const userMatch = await User.findById(match); */
+        const deuMatch = match.mymatchs.includes(payloadDoToken.id);
         
-        console.log("meu id ", payloadDoToken.id);
-        console.log("os praga que eu curti ", mymatchs); */
-        const users = [];
-        const mymatchs  = await User.find({});
-        for (const match of mymatchs) {
-            /*  const userMatch = await User.findById(match); */
-            const deuMatch = match.mymatchs.includes(payloadDoToken.id);
+        if (deuMatch) {
             
-            if (deuMatch) {
+            users.push({
+                match
                 
-                users.push({
-                    match
-                   
-                });
-            }
+            });
         }
+    }
+    
+    console.log("os praga que me curtiro ", users);
+    return res.send(users);
+});
+userRouter.post("/cross" ,async (req,res)=>{
+    let idCross = req.body.id
+    let {token} = req.headers 
+    let achou = false;
+    let payloadDoToken = await jwt.verify(token ,secret)
+    
+ 
+    await User.findById(payloadDoToken.id).then((userAchado)=>{
+   
         
-        console.log("os praga que me curtiro ", users);
-        return res.send(users);
-    });
+        userAchado.mycross.forEach((elemento ,index)=>{
+
+
+      
+            if(idCross ==  elemento.id && !achou){
+                console.log("ID ja salvo ")
+                achou = true;
+                
+                
+            }
+            
+        })
+        
+        if(!achou){
+             
+            userAchado.mycross.push({id:idCross , dateCross:Date.now()})
+            console.log("passou do push")
+            userAchado.save().then(()=>{
+                
+                console.log("Salvou no Array o X") 
+                return res.send(true)
+            })
+        }
+      
+           
+        
+        
+    }).catch((err)=>{
+        console.log("Usuario não encontrado ",err)
+        return res.send(false)
+    })
     
-    
-    module.exports = userRouter;
-    
+})
+
+module.exports = userRouter;

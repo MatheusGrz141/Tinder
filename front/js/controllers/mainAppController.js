@@ -1,10 +1,10 @@
 class mainAppController{
     async init(){
-          this.index = 0
+        this.index = 0
         this.users= []
         await this.fetchUsers();    
         this.mainModel = await this.users.json()  
-      
+        
         
         document.querySelector("#main").innerHTML =  await new  mainAppView( this.mainModel[0]).template();
         
@@ -16,7 +16,9 @@ class mainAppController{
         if(this.mainModel.length >0){
             
             
-            document.querySelector('.interaction').addEventListener('click',()=>{
+            document.querySelector('.cross').addEventListener('click',(e)=>{
+                let userId = e.target.dataset.userid ;
+                this.clickCross(userId)
                 this.proximoCadastro()
             })
             
@@ -53,23 +55,52 @@ class mainAppController{
             "Content-Type":"application/json",
             "token": sessionStorage.getItem("token")
         }
-    })}
-    async clickMatch(id){
-        
-        let bodyData ={
-            id:id
-        }
-        
-        await fetch("http://localhost:3000/users/match" , {
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json" ,
-            "token":sessionStorage.getItem("token")
-        },
-        body:JSON.stringify(bodyData)
-        
-    }) 
+    })
+}
+async clickMatch(id){
     
+    let bodyData ={
+        id:id
+    }
+    
+    await fetch("http://localhost:3000/users/match" , {
+    method:"POST",
+    headers:{
+        "Content-Type":"application/json" ,
+        "token":sessionStorage.getItem("token")
+    },
+    body:JSON.stringify(bodyData)
+    
+}) 
+
+}
+async clickCross(id){
+    let indexAchado ;
+    this.mainModel.forEach((element,index) => {
+        if(element.id ==id){
+            indexAchado = index;
+            
+        }
+    }); 
+    this.mainModel.splice(indexAchado ,1)
+    console.log("Achou " ,indexAchado )
+       let bodyData = {
+        id,
+        
+    }
+    await fetch ("http://localhost:3000/users/cross" ,{
+    method:"POST",
+    headers:{
+        "Content-Type":"application/json",
+        token:sessionStorage.getItem("token")
+    },
+    body:JSON.stringify(bodyData)
+}).then(()=>{
+    
+    console.log("deu certo em clicar no X e adicionar o cabra no Array")
+}).catch((err)=>{
+    console.log("erro ",err)
+})
 }
 async proximoCadastro(){
     

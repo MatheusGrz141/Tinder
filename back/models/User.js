@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
     dateNow:{ type: Date, default: Date.now() },
     interests: {type: [String]},
     mymatchs: {type: [String]},
+    mycross:[{id:String , dateCross:Date} ]
   
     
 })

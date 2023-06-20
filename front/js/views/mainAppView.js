@@ -16,9 +16,9 @@ class mainAppView{
             
             
             <footer class="footer">
-            <button id="home"><img src="./js/imgs/iconHomeSelect.svg" alt=""></button>
-            <button id="matches"><img src="./js/imgs/iconMatchs.svg" alt=""></button>
-            <button><img id="iconProfile" src="${ sessionStorage.getItem("iconAvatar")}" alt=""></button>
+                <button id="home"><img src="./js/imgs/iconHomeSelect.svg" alt=""></button>
+                <button id="matches"><img src="./js/imgs/iconMatchs.svg" alt=""></button>
+                <button><img id="iconProfile" src="${ sessionStorage.getItem("iconAvatar")}" alt=""></button>
             </footer>
             
             `
@@ -36,21 +36,16 @@ class mainAppView{
         <img class="img-user"src="${ this.mainModel.avatar} " alt="imagem de um usuário">
         ${ this.mainModel.firstName} ${ this.mainModel.lastName} 
         <div class="interactions"> 
-        <button class="interaction" data-userid="${this.mainModel.id}"  ><img data-userid="${this.mainModel.id}" src="./js/imgs/iconCros.svg" alt="iconCros"></button>
-        <button class="heart" data-userid="${this.mainModel.id}" ><img data-userid="${this.mainModel.id}" src="./js/imgs/iconHeart.svg" alt="iconHeart"></button>
-        <button class="interaction" data-userid="${this.mainModel.id}" ><img data-userid="${this.mainModel.id}" src="./js/imgs/iconStar.svg" alt="iconStar"></button>
-        
-        
+            <button class="cross interaction " data-userid="${this.mainModel.id}"  ><img data-userid="${this.mainModel.id}" src="./js/imgs/iconCros.svg" alt="iconCros"></button>
+            <button class="heart" data-userid="${this.mainModel.id}" ><img data-userid="${this.mainModel.id}" src="./js/imgs/iconHeart.svg" alt="iconHeart"></button>
+            <button class="interaction" data-userid="${this.mainModel.id}" ><img data-userid="${this.mainModel.id}" src="./js/imgs/iconStar.svg" alt="iconStar"></button>
+                    
         </div>
         
-        
-        
-        
-        
         <footer class="footer">
-        <button id="home"><img src="./js/imgs/iconHomeSelect.svg" alt=""></button>
-        <button id="matches"><img src="./js/imgs/iconMatchs.svg" alt=""></button>
-        <button><img id="iconProfile" src="${ sessionStorage.getItem("iconAvatar")}" alt=""></button>
+            <button id="home"><img src="./js/imgs/iconHomeSelect.svg" alt=""></button>
+            <button id="matches"><img src="./js/imgs/iconMatchs.svg" alt=""></button>
+            <button><img id="iconProfile" src="${ sessionStorage.getItem("iconAvatar")}" alt=""></button>
         </footer>`
     }
     
