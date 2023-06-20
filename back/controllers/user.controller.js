@@ -114,9 +114,9 @@ userRouter.post("/get-accounts" , authMiddleWare ,async(req,res)=>{
     
     const payloadDoToken = jwt.verify(req.headers.token, secret);
     
-    const user= await User.findById(payloadDoToken.id);
+    const userAchado= await User.findById(payloadDoToken.id);
     
-    let userInterests  = user.interests;
+    let userInterests  = userAchado.interests;
     
     
     let Users = [] 
@@ -130,12 +130,28 @@ userRouter.post("/get-accounts" , authMiddleWare ,async(req,res)=>{
                 lastName:user.lastName,
                 avatar:user.avatar 
             })
+
+            
+            userAchado.mycross.forEach((cross)=>{
+              
+                cross.id.includes( user => cross.id === user._id)
+               
+                if(user){
+                    users.pop(user)
+                 
+                    
+                }else{
+                    console.log("entrou no else")
+                }
+            })
         }
     })
-
     return res.send(users)
-    
 })
+
+
+
+
 userRouter.post("/match", authMiddleWare ,async(req,res)=>{
     
     let token = req.headers.token
@@ -204,25 +220,19 @@ userRouter.post("/cross" ,async (req,res)=>{
     let achou = false;
     let payloadDoToken = await jwt.verify(token ,secret)
     
- 
+    
     await User.findById(payloadDoToken.id).then((userAchado)=>{
-   
+        
         
         userAchado.mycross.forEach((elemento ,index)=>{
-
-
-      
             if(idCross ==  elemento.id && !achou){
                 console.log("ID ja salvo ")
                 achou = true;
-                
-                
-            }
-            
+            }  
         })
         
         if(!achou){
-             
+            
             userAchado.mycross.push({id:idCross , dateCross:Date.now()})
             console.log("passou do push")
             userAchado.save().then(()=>{
@@ -231,8 +241,8 @@ userRouter.post("/cross" ,async (req,res)=>{
                 return res.send(true)
             })
         }
-      
-           
+        
+        
         
         
     }).catch((err)=>{

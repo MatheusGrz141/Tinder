@@ -20,12 +20,22 @@ class matchesController{
         })
         document.querySelectorAll(".heart").forEach((button)=>{
             button.addEventListener("click" ,(e)=>{
-            
-        
-    let imgItsAMatch =  document.getElementById(e.target.dataset.index)
-console.log( imgItsAMatch.src)
-               sessionStorage.setItem("imgItsAMatch" ,imgItsAMatch.src ) 
-                   new Navegacao().irParaItsAMAtch() 
+                
+                
+                let imgItsAMatch =  document.getElementById(e.target.dataset.index)
+                console.log( imgItsAMatch.src)
+                sessionStorage.setItem("imgItsAMatch" ,imgItsAMatch.src ) 
+                new Navegacao().irParaItsAMAtch() 
+            })
+        })
+        document.querySelectorAll(".cross").forEach((button)=>{
+            button.addEventListener("click" ,(e)=>{
+                
+                
+                let id =  e.target.dataset.index
+                console.log(id)
+                this.clickCross(id)
+                /* new Navegacao().irParaMatches()   */
             })
         })
         
@@ -43,4 +53,23 @@ console.log( imgItsAMatch.src)
         
         
     }
+    async clickCross(id){
+       
+        let bodyData={
+            id
+        }
+        await fetch ("http://localhost:3000/users/cross" ,{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+            token:sessionStorage.getItem("token")
+        },
+        body:JSON.stringify(bodyData)
+    }).then(()=>{
+        
+        console.log("deu certo em clicar no X e adicionar o cabra no Array")
+    }).catch((err)=>{
+        console.log("erro ",err)
+    })
+}
 }
