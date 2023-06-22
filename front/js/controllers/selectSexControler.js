@@ -39,32 +39,23 @@ class selectSexController{
             "Content-Type":"application/json",
             "token": sessionStorage.getItem("token")
         },
-        body: JSON.stringify(bodyData) 
-    })
-   
-    .then(()=>{
-        console.log("editou de boa")
-    }).catch((e)=>{
-        console.log("erro no fetch "+e)
-    })
-    
-    
-    new Navegacao().irParaSelectInterests(); 
-}
-
-
-
-changeSelect(index){
-    let buttons= document.querySelectorAll(".selectSex");
-    buttons.forEach((botao)=>{
-        if(botao.classList.contains("principal-buttons")) {
-            botao.classList.remove("principal-buttons") 
-            botao.classList.add("secundary-buttons")
-        } 
-    })    
-    buttons[index].classList.toggle("principal-buttons") 
-    buttons[index].classList.toggle("secundary-buttons")
-    
-    
-} 
-}
+        body: JSON.stringify(bodyData)}
+        ).then(()=>{
+            new Navegacao().irParaSelectInterests(); 
+            
+        }).catch((e)=>{
+            alert("erro ao salvar , tente novamente!")
+            new Navegacao().irParaSelectSex(); 
+        })
+    }
+    changeSelect(index){
+        let buttons= document.querySelectorAll(".selectSex");
+        buttons.forEach((botao)=>{
+            if(botao.classList.contains("principal-buttons")) {
+                botao.classList.remove("principal-buttons") 
+                botao.classList.add("secundary-buttons")
+            } 
+        })    
+        buttons[index].classList.toggle("principal-buttons") 
+        buttons[index].classList.toggle("secundary-buttons")} 
+    }

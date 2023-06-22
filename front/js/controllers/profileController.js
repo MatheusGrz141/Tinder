@@ -1,8 +1,4 @@
-
 class profileController{
-    constructor(){
-     
-    }
     init(){
         
         document.querySelector("#main").innerHTML =  new profileView().template()
@@ -17,7 +13,7 @@ class profileController{
         })
     }
     async deletarConta(){
-        console.log(sessionStorage.getItem('token'))
+ 
         let token = sessionStorage.getItem('token')
         let bodyData ={
             token
@@ -32,8 +28,8 @@ class profileController{
         
     }).then(()=>{
         alert("Conta deletada Com sucesso !!!")
-        new Navegacao().irParaInicio()
-    })
-}
-
+        new Navegacao().irParaInicio()}
+        )
+    }
+    
 }

@@ -1,4 +1,3 @@
-
 class loginController{
     
     init(){
@@ -11,11 +10,9 @@ class loginController{
             new Navegacao().irParaContinueToEmail()
         }) 
         document.querySelector("#continue").addEventListener("click",()=>{
-            this.buscarEmail()
-            
+            this.buscarEmail() 
         })
     }
-    
     
     async buscarEmail(){
         let email= document.querySelector("#email").value
@@ -31,29 +28,24 @@ class loginController{
         let existeEmail  =  await fetch("http://localhost:3000/users/find-account", {
         method:"POST",
         headers:  {"Content-Type": "application/json"},
-        body:JSON.stringify(bodyData)  
+        body:JSON.stringify(bodyData)}
+        )
         
-    })
-
-  
-
-    let existeEmailJson = await existeEmail.json()
-    
-    sessionStorage.setItem("emailCadastro" , email)
-    
-    if(existeEmailJson){
-        sessionStorage.setItem("firstName" ,  existeEmailJson.firstName)
-        sessionStorage.setItem("lastName" ,  existeEmailJson.lastName)
-        sessionStorage.setItem("iconAvatar" ,  existeEmailJson.avatar)
-        new Navegacao().irParaloginPassword();
+        let existeEmailJson = await existeEmail.json()
         
-    }else{
-        alert("Email Não cadastrado , crie sua conta !")
-        new Navegacao().irParaSignUp()
-    } 
+        sessionStorage.setItem("emailCadastro" , email)
+        
+        if(existeEmailJson){
+            sessionStorage.setItem("firstName" ,  existeEmailJson.firstName)
+            sessionStorage.setItem("lastName" ,  existeEmailJson.lastName)
+            sessionStorage.setItem("iconAvatar" ,  existeEmailJson.avatar)
+            new Navegacao().irParaloginPassword();
+            
+        }else{
+            alert("Email Não cadastrado , crie sua conta !")
+            new Navegacao().irParaSignUp()
+        } 
+        
+    }
     
-}
-
-
-
 }

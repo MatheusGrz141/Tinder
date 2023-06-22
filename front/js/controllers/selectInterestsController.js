@@ -1,5 +1,3 @@
-
-
 class selectInterestsController{
     init(){
         document.querySelector("#main").innerHTML = new selectInterestsView().template();
@@ -21,28 +19,19 @@ class selectInterestsController{
                 this.changeSelect(index)
             })
         })
-        
     }
     
     async mainApp(){
         let arrayIntereces= []
-        
         arrayIntereces = document.querySelectorAll(".interests-options-select")
-        
         
         let interests = []
         arrayIntereces.forEach((interest)=>{
             interests.push(interest.value)
         })
-        
-        
-        
-        let bodyData = {
-            
+        let bodyData = {  
             interests:interests
         };
-        
-        
         
         await fetch("http://localhost:3000/users/update-account", {
         method:"PUT",
@@ -50,20 +39,17 @@ class selectInterestsController{
             "Content-Type": "application/json",
             "token": sessionStorage.getItem("token")
         },
-        body:JSON.stringify(bodyData) }) 
-        
-        
-        
-        
-        
-        new Navegacao().irParaMainApp() 
+        body:JSON.stringify(bodyData) }).then(()=>{
+            new Navegacao().irParaMainApp()  
+        }).catch(()=>{
+            alert("erro ao cadastrar interesses,tente novamente")
+            new Navegacao().irParaSelectInterests(); 
+        })
     }
-    
-    
+
     changeSelect(index){
         let buttons= document.querySelectorAll(".selectInterests");
-        
-        
+ 
         if(buttons[index].classList.contains("interests-options-select")) {
             buttons[index].classList.remove("interests-options-select") 
             buttons[index].classList.add("interests-options")

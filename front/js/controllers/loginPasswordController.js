@@ -24,32 +24,21 @@ class loginPasswordController{
         headers:{
             "Content-Type":"application/json",
         },
-        body: JSON.stringify(bodyData)
-        
-        
-    })  
-    let token2 = await token.json();
-    if(token2){
-        
-        sessionStorage.setItem("token" ,token2.token)
-        
-        console.log("logou")
-        
-        new Navegacao().irParaMainApp() 
-    }else{
-        alert("senha incorreta")
-        console.log("erro na senha")
-        new Navegacao().irParaloginPassword()  
+        body: JSON.stringify(bodyData)}
+        )  
+        let tokenJson = await token.json();
+        if(tokenJson){
+            
+            sessionStorage.setItem("token" ,tokenJson.token)
+            
+            console.log("logou")
+            
+            new Navegacao().irParaMainApp() 
+        }else{
+            alert("senha incorreta")
+          
+            new Navegacao().irParaloginPassword()  
+        }
+   
     }
-    ; 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-}
 }

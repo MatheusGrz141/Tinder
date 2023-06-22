@@ -1,5 +1,4 @@
 class continueToEmailController{
-    
     init(){
         document.querySelector("#main").innerHTML =new  continueToEmailView().template()
         this.bind()

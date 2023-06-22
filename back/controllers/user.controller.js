@@ -11,24 +11,23 @@ const secret = "74awasd5678u@#RY58375nef";
 const authMiddleWare = require("../middleware/auth");
 
 userRouter.put("/update-account" , authMiddleWare, async(req,res)=>{
-   console.log("req.body ",req.body)
-   console.log("req.body.iAm ",req.body.iAm)
-        if(req.body.iAm){
-            req.userLogado.iAm = req.body.iAm; 
-            console.log("ima salvo")   
-        }          
-        if(req.body.interests ){
-            req.userLogado.interests  = req.body.interests 
-            console.log("interess salvo") 
-        }     
-        req.userLogado.save().then(()=>{
-            console.log("Informações salvas corretamente")
-        }).catch(()=>{
-            res.status(401).send({error: "Erro ao salvar informações "});
-        })
-        
-        return  res.send(true);
-
+    
+    if(req.body.iAm){
+        req.userLogado.iAm = req.body.iAm; 
+        console.log("iAM salvo")   
+    }          
+    if(req.body.interests ){
+        req.userLogado.interests  = req.body.interests 
+        console.log("interess salvo") 
+    }     
+    req.userLogado.save().then(()=>{
+        console.log("Informações salvas corretamente")
+    }).catch(()=>{
+        return res.status(401).send({error: "Erro ao salvar informações "});
+    })
+    
+    return  res.send(true);
+    
 })
 userRouter.post("/sign-up", upload.single("avatar")  , async (req,res)=>{
     
@@ -43,8 +42,6 @@ userRouter.post("/sign-up", upload.single("avatar")  , async (req,res)=>{
         birthday:req.body.birthday,
         password : password  ,
     }).save().then((user)=>{
-        
-        
         const token = jwt.sign({  
             email: user.email, 
             id: user._id
@@ -53,53 +50,51 @@ userRouter.post("/sign-up", upload.single("avatar")  , async (req,res)=>{
         return res.send({token: token ,avatar:user.avatar ,firstName:user.firstName, lastName:user.lastName});
     }).catch(()=>{
         
-        res.status(401).send({error: "Email ou senha inválido "});
+        return res.status(401).send({error: "Email ou senha inválido "});
     });  
 })
 userRouter.post("/sign-in", async (req, res) => {
     
     password = Base64.stringify(sha256(req.body.password))
-    
     let user =  await User.findOne({email:req.body.email,  password:password})
     
     if(user){
-        
         const token = jwt.sign({  
             email: user.email, 
             id: user._id
         }, secret)
+        
         return res.send({token: token});
     }else{
-        return res.send(false) 
+        
+        return res.status(401).send({error: "Erro de acesso informações "});
     }
 })  
 userRouter.post("/find-account",async (req,res)=>{
     
     let {email} = req.body
-    
     let emailAchado= await User.findOne({ email })
-    
     
     if (emailAchado) {
         let user =   {avatar: emailAchado.avatar ,firstName: emailAchado.firstName , lastName:emailAchado.lastName}
         return  res.send(user);
+        
     } else {
-        
-        return res.send(false)
-        
+        return res.send(false); 
     }
 })
 userRouter.delete("/delete-account", authMiddleWare , async (req,res)=>{
+    req.userLogado.deleteOne().then(()=>{
+        return  res.send(true);
+    }).catch((err)=>{
+        return res.status(401).send({error: "Erro ao deletar usuário ",err});
+    })
     
-    req.userLogado.deleteOne()
-    return  res.send(true);
     
 })
 userRouter.post("/get-accounts" , authMiddleWare ,async(req,res)=>{
     
-    
     let userInterests  = req.userLogado.interests;
-    
     
     let UsersComMesmosInteresses = [] 
     let users =[]
@@ -113,17 +108,11 @@ userRouter.post("/get-accounts" , authMiddleWare ,async(req,res)=>{
                 avatar:user.avatar 
             })
             
-            
             req.userLogado.mycross.forEach((cross)=>{
-                
                 cross.id.includes( user => cross.id === user._id)
                 
                 if(user){
-                    users.pop(user)
-                    
-                    
-                }else{
-                    console.log("entrou no else")
+                    users.pop(user) 
                 }
             })
         }
@@ -132,64 +121,45 @@ userRouter.post("/get-accounts" , authMiddleWare ,async(req,res)=>{
 })
 userRouter.post("/match", authMiddleWare ,async(req,res)=>{
     
-    
-    
     let userAchado = req.userLogado
     
-    if(userAchado){
+    
+    let id =  req.body.id;
+    let user = userAchado.mymatchs.find(match =>match==id)
+    
+    if (!user && userAchado._id != id){
+        userAchado.mymatchs.push(id)
+        userAchado.save() 
         
-        let id =  req.body.id;
-        
-        let user = userAchado.mymatchs.find(match =>match==id)
-        
-        
-        if (!user && payloadDoToken.id != id){
-            userAchado.mymatchs.push(id)
-            userAchado.save() 
-            
-            return  res.send(true)  
-            
-        }else{
-            
-            return  res.send(false) 
-            
-        }
-        
-        
-    }else{
-        
-        return  res.send(false) 
-        
+        return  res.send(true)    
     }
+    return res.send(false)
     
 })
 userRouter.post("/matchs", authMiddleWare, async (req, res) => {
-    const payloadDoToken = jwt.verify(req.headers.token, secret);
-    
     
     const users = [];
     const mymatchs  = await User.find({});
     for (const match of mymatchs) {
         
-        const deuMatch = match.mymatchs.includes(payloadDoToken.id);
+        const deuMatch = match.mymatchs.includes(req.userLogado._id);
         
         if (deuMatch) {
             
             users.push({
-                match
-                
+                match  
             });
         }
-    }
-    
+    } 
     return res.send(users);
 });
 userRouter.post("/cross" ,authMiddleWare ,async (req,res)=>{
-    let idCross = req.body.id
-    let userAchado = req.userLogado
-    userAchado.mycross.push({id:idCross , dateCross:Date.now()})
-    userAchado.save().then(()=>{   
+    
+    req.userLogado.mycross.push({id:req.body.id , dateCross:Date.now()})
+    req.userLogados.save().then(()=>{   
         return res.send(true)
+    }).catch(()=>{
+        return res.status(401).send({err:"erro ao adicionar X"})
     })
     
 })
@@ -203,9 +173,11 @@ userRouter.delete("/remove-match", authMiddleWare, async (req,res)=>{
             user.save().then(()=>{
                 console.log("salvou certo")
             })
+            return res.send(true)
         }
+        return res.send(false)
     }).catch((err)=>{
-        console.log("Não achamo o cabra " ,err)
+       return res.status(401).send({err:"erro ao adicionar X"})
     }) 
 })
 module.exports = userRouter;
