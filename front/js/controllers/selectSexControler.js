@@ -24,21 +24,24 @@ class selectSexController{
     async selectInterests(){
         
         let iAm = document.querySelector(".principal-buttons ").value;
-        
+        if(!iAm){
+            alert("Selecione uma Opção antes de continuar!")
+            return
+        }
+        console.log("iAm" ,iAm)
         let bodyData = {
-            iAm:iAm,
+            iAm:iAm
         }
         
         await fetch("http://localhost:3000/users/update-account", {
-        method:"POST",
+        method:"PUT",
         headers: {
+            "Content-Type":"application/json",
             "token": sessionStorage.getItem("token")
         },
         body: JSON.stringify(bodyData) 
     })
-    
-    
-    
+   
     .then(()=>{
         console.log("editou de boa")
     }).catch((e)=>{
@@ -48,30 +51,20 @@ class selectSexController{
     
     new Navegacao().irParaSelectInterests(); 
 }
+
+
+
 changeSelect(index){
     let buttons= document.querySelectorAll(".selectSex");
     buttons.forEach((botao)=>{
         if(botao.classList.contains("principal-buttons")) {
             botao.classList.remove("principal-buttons") 
             botao.classList.add("secundary-buttons")
-        }
-        
-        
-    })
-    
-    if(buttons[index].classList.contains("principal-buttons")) {
-        buttons[index].classList.remove("principal-buttons") 
-        buttons[index].classList.add("secundary-buttons")
-    } else{
-        buttons[index].classList.remove("secundary-buttons") 
-        buttons[index].classList.add("principal-buttons")
-    }
+        } 
+    })    
+    buttons[index].classList.toggle("principal-buttons") 
+    buttons[index].classList.toggle("secundary-buttons")
     
     
-    
-    
-    
-    
-    
-}
+} 
 }

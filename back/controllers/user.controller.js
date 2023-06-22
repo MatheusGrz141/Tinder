@@ -10,31 +10,25 @@ const mongoose = require("mongoose")
 const secret = "74awasd5678u@#RY58375nef";
 const authMiddleWare = require("../middleware/auth");
 
-userRouter.post("/update-account" , async(req,res)=>{
-    
-    let token = req.headers.token;
-    const payloadDoToken = await jwt.verify(token, secret);
-    
-    await User.findById(payloadDoToken.id).then((emailAchado) => {
-        
-        
+userRouter.put("/update-account" , authMiddleWare, async(req,res)=>{
+   console.log("req.body ",req.body)
+   console.log("req.body.iAm ",req.body.iAm)
         if(req.body.iAm){
-            emailAchado.iAm = req.body.iAm;   
-            
+            req.userLogado.iAm = req.body.iAm; 
+            console.log("ima salvo")   
         }          
         if(req.body.interests ){
-            emailAchado.interests  = req.body.interests
-            
+            req.userLogado.interests  = req.body.interests 
+            console.log("interess salvo") 
         }     
-        emailAchado.save().then(()=>{
-            console.log(" salvou certinho")
+        req.userLogado.save().then(()=>{
+            console.log("Informações salvas corretamente")
+        }).catch(()=>{
+            res.status(401).send({error: "Erro ao salvar informações "});
         })
         
         return  res.send(true);
-        
-    }) 
-    console.log ("deu erro pra achar o cabra")
-    return
+
 })
 userRouter.post("/sign-up", upload.single("avatar")  , async (req,res)=>{
     
@@ -57,9 +51,9 @@ userRouter.post("/sign-up", upload.single("avatar")  , async (req,res)=>{
         }, secret); 
         
         return res.send({token: token ,avatar:user.avatar ,firstName:user.firstName, lastName:user.lastName});
-    }).catch((err)=>{
+    }).catch(()=>{
         
-        res.status(401).send({error: "Email ou senha inválido"});
+        res.status(401).send({error: "Email ou senha inválido "});
     });  
 })
 userRouter.post("/sign-in", async (req, res) => {
@@ -95,35 +89,23 @@ userRouter.post("/find-account",async (req,res)=>{
         
     }
 })
-userRouter.delete("/delete-account",async (req,res)=>{
+userRouter.delete("/delete-account", authMiddleWare , async (req,res)=>{
     
-    const payloadDoToken = jwt.verify(req.body.token, secret);
+    req.userLogado.deleteOne()
+    return  res.send(true);
     
-    const userDeletado = await User.findById(payloadDoToken.id); 
-    
-    if (userDeletado) {
-        userDeletado.deleteOne()
-        return  res.send(true);
-    } else {
-        
-        return res.send(false)
-        
-    }
 })
 userRouter.post("/get-accounts" , authMiddleWare ,async(req,res)=>{
     
-    const payloadDoToken = jwt.verify(req.headers.token, secret);
     
-    const userAchado= await User.findById(payloadDoToken.id);
-    
-    let userInterests  = userAchado.interests;
+    let userInterests  = req.userLogado.interests;
     
     
-    let Users = [] 
+    let UsersComMesmosInteresses = [] 
     let users =[]
-    Users= await User.find({interests:{$in :userInterests}})
-    Users.forEach((user)=>{
-        if (payloadDoToken.id != user._id){
+    UsersComMesmosInteresses= await User.find({interests:{$in :userInterests}})
+    UsersComMesmosInteresses.forEach((user)=>{
+        if (req.userLogado.id != user._id /* && Date.now()>= data */){
             users.push({
                 id:user._id, 
                 firstName:user.firstName,
@@ -132,7 +114,7 @@ userRouter.post("/get-accounts" , authMiddleWare ,async(req,res)=>{
             })
             
             
-            userAchado.mycross.forEach((cross)=>{
+            req.userLogado.mycross.forEach((cross)=>{
                 
                 cross.id.includes( user => cross.id === user._id)
                 
@@ -150,10 +132,9 @@ userRouter.post("/get-accounts" , authMiddleWare ,async(req,res)=>{
 })
 userRouter.post("/match", authMiddleWare ,async(req,res)=>{
     
-    let token = req.headers.token
-    const payloadDoToken = jwt.verify(token, secret);
     
-    let userAchado = await User.findById(payloadDoToken.id)
+    
+    let userAchado = req.userLogado
     
     if(userAchado){
         
@@ -201,53 +182,30 @@ userRouter.post("/matchs", authMiddleWare, async (req, res) => {
         }
     }
     
-    
     return res.send(users);
 });
-userRouter.post("/cross" ,async (req,res)=>{
+userRouter.post("/cross" ,authMiddleWare ,async (req,res)=>{
     let idCross = req.body.id
-    let {token} = req.headers 
-    let achou = false;
-    let payloadDoToken = await jwt.verify(token ,secret)
-    
-    await User.findById(payloadDoToken.id).then((userAchado)=>{
-        
-        if(!achou){
-            userAchado.mycross.push({id:idCross , dateCross:Date.now()})
-            userAchado.save().then(()=>{   
-                return res.send(true)
-            }
-            )
-        }        
-    }).catch((err)=>{
-        console.log("Usuario não encontrado ",err)
-        return res.send(false)
+    let userAchado = req.userLogado
+    userAchado.mycross.push({id:idCross , dateCross:Date.now()})
+    userAchado.save().then(()=>{   
+        return res.send(true)
     })
     
 })
-userRouter.delete("/remove-match", async (req,res)=>{
-    console.log("entrou na rota")
-    let {id ,token} = req.body
-    console.log("id ",id ," token ",token)
-    let payloadDoToken = jwt.verify(token ,secret)
-    console.log("payloadDoToken ",payloadDoToken)
+userRouter.delete("/remove-match", authMiddleWare, async (req,res)=>{
+    let {id } = req.body
     await User.findById(id).then((user)=>{
-        
-        
-        if(user.mymatchs.includes(payloadDoToken.id))  {
-            console.log("user.mymatchs ",user.mymatchs )
-            let newMymatchs = user.mymatchs.filter(value => value != payloadDoToken.id)
-            console.log(newMymatchs)
+        if(user.mymatchs.includes(req.userLogado.id))  {
+            
+            let newMymatchs = user.mymatchs.filter(value => value != req.userLogado.id)
             user.mymatchs = newMymatchs;
             user.save().then(()=>{
                 console.log("salvou certo")
             })
         }
-        
-        
     }).catch((err)=>{
         console.log("Não achamo o cabra " ,err)
-    })
-    
+    }) 
 })
 module.exports = userRouter;

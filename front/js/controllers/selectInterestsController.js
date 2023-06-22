@@ -45,7 +45,7 @@ class selectInterestsController{
         
         
         await fetch("http://localhost:3000/users/update-account", {
-        method:"POST",
+        method:"PUT",
         headers: {
             "Content-Type": "application/json",
             "token": sessionStorage.getItem("token")
