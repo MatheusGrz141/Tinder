@@ -34,7 +34,7 @@ userRouter.post("/sign-up", upload.single("avatar")  , async (req,res)=>{
     let avatar = `http://localhost:3000/${req.file.path}`;
     let password = Base64.stringify(sha256(req.body.password));
     
-    new mongoose.model('User')({ 
+    new User({ 
         avatar:avatar,
         email:req.body.email,
         firstName:req.body.firstName,
@@ -42,6 +42,7 @@ userRouter.post("/sign-up", upload.single("avatar")  , async (req,res)=>{
         birthday:req.body.birthday,
         password : password  ,
     }).save().then((user)=>{
+        
         const token = jwt.sign({  
             email: user.email, 
             id: user._id
@@ -70,9 +71,10 @@ userRouter.post("/sign-in", async (req, res) => {
         return res.status(401).send({error: "Erro de acesso informações "});
     }
 })  
-userRouter.post("/find-account",async (req,res)=>{
+userRouter.get("/find-account",async (req,res)=>{
     
-    let {email} = req.body
+    let {email} = req.query
+    console.log("Email ",email)
     let emailAchado= await User.findOne({ email })
     
     if (emailAchado) {
@@ -92,15 +94,26 @@ userRouter.delete("/delete-account", authMiddleWare , async (req,res)=>{
     
     
 })
-userRouter.post("/get-accounts" , authMiddleWare ,async(req,res)=>{
+userRouter.get("/get-accounts" , authMiddleWare ,async(req,res)=>{
     
-    let userInterests  = req.userLogado.interests;
-    
+    let {userInterests ,
+        mycross
+    } = req.userLogado
+
     let UsersComMesmosInteresses = [] 
     let users =[]
-    UsersComMesmosInteresses= await User.find({interests:{$in :userInterests}})
+    let iAm = req.userLogado.iAm;
+    
+    if(iAm == 'Man'){
+        UsersComMesmosInteresses= await User.find({iAm:'Woman',interests:{$in :userInterests}})
+    }else if(iAm == 'Woman'){
+        UsersComMesmosInteresses= await User.find({iAm:'Man',interests:{$in :userInterests}})
+    }else{
+        UsersComMesmosInteresses= await User.find({interests:{$in :userInterests}})
+    }
+    
     UsersComMesmosInteresses.forEach((user)=>{
-        if (req.userLogado.id != user._id /* && Date.now()>= data */){
+        if (req.userLogado.id != user._id ){
             users.push({
                 id:user._id, 
                 firstName:user.firstName,
@@ -124,7 +137,7 @@ userRouter.post("/match", authMiddleWare ,async(req,res)=>{
     let userAchado = req.userLogado
     
     
-    let id =  req.body.id;
+    let id =  req.params.id;
     let user = userAchado.mymatchs.find(match =>match==id)
     
     if (!user && userAchado._id != id){
@@ -136,7 +149,7 @@ userRouter.post("/match", authMiddleWare ,async(req,res)=>{
     return res.send(false)
     
 })
-userRouter.post("/matchs", authMiddleWare, async (req, res) => {
+userRouter.get("/matchs", authMiddleWare, async (req, res) => {
     
     const users = [];
     const mymatchs  = await User.find({});
@@ -155,8 +168,8 @@ userRouter.post("/matchs", authMiddleWare, async (req, res) => {
 });
 userRouter.post("/cross" ,authMiddleWare ,async (req,res)=>{
     
-    req.userLogado.mycross.push({id:req.body.id , dateCross:Date.now()})
-    req.userLogados.save().then(()=>{   
+    req.userLogado.mycross.push({id:req.query.id , dateCross:Date.now()})
+    req.userLogado.save().then(()=>{   
         return res.send(true)
     }).catch(()=>{
         return res.status(401).send({err:"erro ao adicionar X"})
@@ -177,7 +190,7 @@ userRouter.delete("/remove-match", authMiddleWare, async (req,res)=>{
         }
         return res.send(false)
     }).catch((err)=>{
-       return res.status(401).send({err:"erro ao adicionar X"})
+        return res.status(401).send({err:"erro ao adicionar X"})
     }) 
 })
 module.exports = userRouter;

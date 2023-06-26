@@ -34,7 +34,6 @@ class matchesController{
     }
     async buscaOsMatchs(){
         let resposta = await fetch("http://localhost:3000/users/matchs" ,{
-        method:"POST",
         headers:{
             "Content-Type":"application/json",
             "token": sessionStorage.getItem("token")

@@ -40,57 +40,48 @@ class mainAppController{
     
     async fetchUsers(){
         this.users =   await fetch('http://localhost:3000/users/get-accounts' ,{
-        method:"POST",
+        
         headers:{
             "Content-Type":"application/json",
             "token": sessionStorage.getItem("token")}
         })
     }
     async clickMatch(id){
-        
-        let bodyData ={
-            id:id
-        }
-        
-        await fetch("http://localhost:3000/users/match" , {
+        this.removerPerfil(id)
+       
+        await fetch(`http://localhost:3000/users/match?id=${id}` , {
         method:"POST",
         headers:{
             "Content-Type":"application/json" ,
             "token":sessionStorage.getItem("token")
-        },
-        body:JSON.stringify(bodyData)}
-        ) 
-        
-    }
-    async clickCross(id){
-        let indexAchado ;
-        this.mainModel.forEach((element,index) => {
-            if(element.id ==id){
-                indexAchado = index;
-                
-            }
-        }); 
-        this.mainModel.splice(indexAchado ,1)
-        console.log("Achou " ,indexAchado )
-        let bodyData = {
-            id,
-            
         }
-        await fetch ("http://localhost:3000/users/cross" ,{
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json",
-            'token':sessionStorage.getItem("token")
-        },
-        body:JSON.stringify(bodyData)}).catch((err)=>{
-            console.log("erro ao clicar no X ",err)
-        })
+    }) 
+    
+}
+async clickCross(id){
+    this.removerPerfil(id)
+    
+    await fetch (`http://localhost:3000/users/cross?id=${id}` ,{
+    method:"POST",
+    headers:{
+        "Content-Type":"application/json",
+        'token':sessionStorage.getItem("token")
     }
-    async proximoCadastro(){
-        
-        this.index = (this.index + 1) % this.mainModel.length;
-        document.querySelector("#main").innerHTML = await new mainAppView( this.mainModel[this.index]).template();
-        this.bind()
-        
-    }
+})
+
+}
+async proximoCadastro(){
+    
+    this.index = (this.index + 1) % this.mainModel.length;
+    document.querySelector("#main").innerHTML = await new mainAppView( this.mainModel[this.index]).template();
+    this.bind()
+    
+}
+removerPerfil(id){
+    this.mainModel.forEach((element,index) => {
+        if(element.id ==id){
+            this.mainModel.splice(index ,1)  
+        }
+    });   
+}
 }

@@ -21,14 +21,10 @@ class loginController{
             alert ("Digite um email antes de continuar")
             return
         }
-        let bodyData = {
-            email:email,
-        };
+      
         
-        let existeEmail  =  await fetch("http://localhost:3000/users/find-account", {
-        method:"POST",
-        headers:  {"Content-Type": "application/json"},
-        body:JSON.stringify(bodyData)}
+        let existeEmail  =  await fetch(`http://localhost:3000/users/find-account?email=${email}`, {
+        headers:  {"Content-Type": "application/json"},}
         )
         
         let existeEmailJson = await existeEmail.json()
