@@ -117,12 +117,14 @@ userRouter.get("/get-accounts" , authMiddleWare ,async(req,res)=>{
     
     UsersComMesmosInteresses.forEach((user)=>{ 
         mycross.forEach((cross)=>{
-            if( cross.id == user._id ){
+         
+            if( cross.id == user._id &&  cross.dateCross >=dataLimite ){
+              
                 this.pessoasQueEuDeiCross.push(user) 
             }
             
         }) 
-        console.log("mycross.dateCross ",mycross)
+       
         if ((req.userLogado.id != user._id)  && (!this.pessoasQueEuDeiCross.includes(user)) ){
             users.push({
                 id:user._id, 
