@@ -1,6 +1,6 @@
 class selectSexController{
     init(){
-        console.log("Entrou no select SEx controller token: "+sessionStorage.getItem("token"))
+   
         document.querySelector("#main").innerHTML = new selectSexView().template()
         
         document.querySelector("#continue").addEventListener("click" , ()=>{
@@ -28,7 +28,7 @@ class selectSexController{
             alert("Selecione uma Opção antes de continuar!")
             return
         }
-        console.log("iAm" ,iAm)
+     
         let bodyData = {
             iAm:iAm
         }

@@ -31,7 +31,7 @@ class loginPasswordController{
             
             sessionStorage.setItem("token" ,tokenJson.token)
             
-            console.log("logou")
+
             
             new Navegacao().irParaMainApp() 
         }else{

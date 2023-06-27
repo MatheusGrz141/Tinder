@@ -1,6 +1,5 @@
 class mainAppView{
     constructor(mainModel,imgUserLogado){
-        console.log("    this.mainModel" ,    mainModel," this.imgUserLogado ", imgUserLogado )
         this.mainModel = mainModel;
         this.imgUserLogado = imgUserLogado;
         

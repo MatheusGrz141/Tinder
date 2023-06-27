@@ -14,14 +14,14 @@ userRouter.put("/update-account" , authMiddleWare, async(req,res)=>{
     
     if(req.body.iAm){
         req.userLogado.iAm = req.body.iAm; 
-        console.log("iAM salvo")   
+        
     }          
     if(req.body.interests ){
         req.userLogado.interests  = req.body.interests 
-        console.log("interess salvo") 
+        
     }     
     req.userLogado.save().then(()=>{
-        console.log("Informações salvas corretamente")
+        
     }).catch(()=>{
         return res.status(401).send({error: "Erro ao salvar informações "});
     })
@@ -74,7 +74,6 @@ userRouter.post("/sign-in", async (req, res) => {
 userRouter.get("/find-account",async (req,res)=>{
     
     let {email} = req.query
-    console.log("Email ",email)
     let emailAchado= await User.findOne({ email })
     
     if (emailAchado) {
@@ -105,12 +104,21 @@ userRouter.get("/get-accounts" , authMiddleWare ,async(req,res)=>{
     let UsersComMesmosInteresses = [] 
     let users =[]
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
     if(iAm == 'Man'){  
         UsersComMesmosInteresses= await User.find({iAm: "Woman" , interests:{$in :interests}})
     }else if(iAm == 'Woman'){ 
-        UsersComMesmosInteresses= await User.find({iAm: "Man" ,interests:{$in :userInterests}})
+        UsersComMesmosInteresses= await User.find({iAm: "Man" ,interests:{$in :interests}})
     }else{
-        UsersComMesmosInteresses= await User.find({interests:{$in :userInterests}})
+        UsersComMesmosInteresses= await User.find({interests:{$in :interests}})
     } 
     UsersComMesmosInteresses.forEach((user)=>{
         
@@ -122,9 +130,15 @@ userRouter.get("/get-accounts" , authMiddleWare ,async(req,res)=>{
                 avatar:user.avatar 
             }) 
             mycross.forEach((cross)=>{
+                
+                
+                var dataLimite = new Date();
+                dataLimite.setMinutes(dataLimite.getMinutes() - 1);
+                
+                
                 cross.id.includes( user => cross.id === user._id)
                 
-                if(user){
+                if(user &&  cross.dateCross>dataLimite){
                     users.pop(user) 
                 }
             })
@@ -137,7 +151,8 @@ userRouter.post("/match", authMiddleWare ,async(req,res)=>{
     let userAchado = req.userLogado
     
     
-    let id =  req.params.id;
+    let id =  req.query.id
+    
     let user = userAchado.mymatchs.find(match =>match==id)
     
     if (!user && userAchado._id != id){
@@ -152,18 +167,22 @@ userRouter.post("/match", authMiddleWare ,async(req,res)=>{
 userRouter.get("/matchs", authMiddleWare, async (req, res) => {
     
     const users = [];
+    
     const mymatchs  = await User.find({});
+    
     for (const match of mymatchs) {
         
-        const deuMatch = match.mymatchs.includes(req.userLogado._id);
+        const deuMatch = match.mymatchs.includes(req.userLogado._id.toString());
         
         if (deuMatch) {
             
             users.push({
-                match  
+                
+                match 
             });
         }
     } 
+    
     return res.send(users);
 });
 userRouter.post("/cross" ,authMiddleWare ,async (req,res)=>{
@@ -183,9 +202,9 @@ userRouter.delete("/remove-match", authMiddleWare, async (req,res)=>{
             
             let newMymatchs = user.mymatchs.filter(value => value != req.userLogado.id)
             user.mymatchs = newMymatchs;
-            user.save().then(()=>{
-                console.log("salvou certo")
-            })
+            user.save().catch((err)=>{
+                return res.status(401).send({err:"erro ao adicionar X"})
+            }) 
             return res.send(true)
         }
         return res.send(false)

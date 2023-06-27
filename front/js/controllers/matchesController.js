@@ -2,7 +2,8 @@ class matchesController{
     async init(){
         
         await this.buscaOsMatchs();
-        document.querySelector("#main").innerHTML = new matchesView(this.matchs).template()
+        this.imgUserLogado = sessionStorage.getItem("iconAvatar");
+        document.querySelector("#main").innerHTML = new matchesView(this.matchs, this.imgUserLogado ).template()
         this.bind()
     }
     bind(){
@@ -33,6 +34,7 @@ class matchesController{
         })
     }
     async buscaOsMatchs(){
+      
         let resposta = await fetch("http://localhost:3000/users/matchs" ,{
         headers:{
             "Content-Type":"application/json",
@@ -40,7 +42,7 @@ class matchesController{
         } })
         
         this.matchs = await resposta.json() 
-        
+
     }
     async removeMatch(id){
         

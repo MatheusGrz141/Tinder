@@ -1,7 +1,11 @@
 class profileController{
     init(){
-        
-        document.querySelector("#main").innerHTML =  new profileView().template()
+        this.imgUserLogado ={
+            avatar:sessionStorage.getItem("iconAvatar"),
+            firstName:sessionStorage.getItem("firstName") ,
+            lastName:sessionStorage.getItem("lastName")
+        } 
+        document.querySelector("#main").innerHTML =  new profileView(this.imgUserLogado).template()
         this.bind()
     }
     bind(){
@@ -13,7 +17,7 @@ class profileController{
         })
     }
     async deletarConta(){
- 
+        
         let token = sessionStorage.getItem('token')
         let bodyData ={
             token

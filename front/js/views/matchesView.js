@@ -1,5 +1,6 @@
 class matchesView{
-    constructor(matchs){
+    constructor(matchs , imgUserLogado){
+        this.imgUserLogado = imgUserLogado
         this.matchs = matchs
     }
     template(){
@@ -7,7 +8,7 @@ class matchesView{
         let main = ``
         this.matchs.forEach((element)=> {
             main += ` 
-           
+            
             <div class="match-container">
             <h1>${element.match.firstName} ${element.match.lastName}</h1>
             <img id="${element.match._id}" class="img-user"src="${element.match.avatar}" alt="imagem de um usuário">
@@ -34,7 +35,7 @@ class matchesView{
         <footer class="footer">
         <button id="home"><img src="./js/imgs/iconHome.svg" alt=""></button>
         <button id="matches"><img src="./js/imgs/iconMatchsSelect.svg" alt=""></button>
-        <button><img id="iconProfile" src="${sessionStorage.getItem("iconAvatar")}" alt=""></button>
+        <button><img id="iconProfile" src="${this.imgUserLogado}" alt=""></button>
         </footer>
         `
     }

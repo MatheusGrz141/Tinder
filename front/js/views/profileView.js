@@ -1,10 +1,7 @@
 class profileView{
     
-    constructor(){
-   
-        this.avatar =  sessionStorage.getItem("iconAvatar")
-        this.firstName  = sessionStorage.getItem("firstName")
-        this.lastName =  sessionStorage.getItem("lastName")
+    constructor(  imgUserLogado){
+        this.imgUserLogado = imgUserLogado
     }
     
     template(){
@@ -18,8 +15,8 @@ class profileView{
         
         </div>
         <h1 id="logosigninup-h1" >Profile</h1>
-        <img id="logoProfile" src="${this.avatar}" alt="">
-        <h2 id="nameUser" >${this.firstName} ${this.lastName}</h1>
+        <img id="logoProfile" src="${this.imgUserLogado.avatar}" alt="">
+        <h2 id="nameUser" >${this.imgUserLogado.firstName} ${this.imgUserLogado.lastName}</h1>
         
         
         
