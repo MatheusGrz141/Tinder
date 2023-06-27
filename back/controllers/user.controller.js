@@ -103,45 +103,33 @@ userRouter.get("/get-accounts" , authMiddleWare ,async(req,res)=>{
     
     let UsersComMesmosInteresses = [] 
     let users =[]
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    this.pessoasQueEuDeiCross = []
     if(iAm == 'Man'){  
         UsersComMesmosInteresses= await User.find({iAm: "Woman" , interests:{$in :interests}})
     }else if(iAm == 'Woman'){ 
         UsersComMesmosInteresses= await User.find({iAm: "Man" ,interests:{$in :interests}})
     }else{
         UsersComMesmosInteresses= await User.find({interests:{$in :interests}})
-    } 
-    UsersComMesmosInteresses.forEach((user)=>{
-        
-        if (req.userLogado.id != user._id ){
+    }   
+    
+    let dataLimite = new Date();
+    dataLimite.setMinutes(dataLimite.getMinutes() - 1);
+    
+    UsersComMesmosInteresses.forEach((user)=>{ 
+        mycross.forEach((cross)=>{
+            if( cross.id == user._id ){
+                this.pessoasQueEuDeiCross.push(user) 
+            }
+            
+        }) 
+        console.log("mycross.dateCross ",mycross)
+        if ((req.userLogado.id != user._id)  && (!this.pessoasQueEuDeiCross.includes(user)) ){
             users.push({
                 id:user._id, 
                 firstName:user.firstName,
                 lastName:user.lastName,
                 avatar:user.avatar 
             }) 
-            mycross.forEach((cross)=>{
-                
-                
-                var dataLimite = new Date();
-                dataLimite.setMinutes(dataLimite.getMinutes() - 1);
-                
-                
-                cross.id.includes( user => cross.id === user._id)
-                
-                if(user &&  cross.dateCross>dataLimite){
-                    users.pop(user) 
-                }
-            })
         }
     })
     return res.send(users)
@@ -186,14 +174,12 @@ userRouter.get("/matchs", authMiddleWare, async (req, res) => {
     return res.send(users);
 });
 userRouter.post("/cross" ,authMiddleWare ,async (req,res)=>{
-    
     req.userLogado.mycross.push({id:req.query.id , dateCross:Date.now()})
     req.userLogado.save().then(()=>{   
         return res.send(true)
     }).catch(()=>{
         return res.status(401).send({err:"erro ao adicionar X"})
     })
-    
 })
 userRouter.delete("/remove-match", authMiddleWare, async (req,res)=>{
     let {id } = req.body
