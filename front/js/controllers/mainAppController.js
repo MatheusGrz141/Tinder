@@ -4,7 +4,9 @@ class mainAppController{
         this.users= []
         await this.fetchUsers();    
         this.mainModel = await this.users.json()   
-        document.querySelector("#main").innerHTML =  await new  mainAppView( this.mainModel[0]).template();
+        this.imgUserLogado = sessionStorage.getItem("iconAvatar");
+     
+        document.querySelector("#main").innerHTML = new  mainAppView(this.mainModel[0],this.imgUserLogado).template();
         this.bind()
     }
     bind(){
@@ -48,7 +50,7 @@ class mainAppController{
     }
     async clickMatch(id){
         this.removerPerfil(id)
-       
+        
         await fetch(`http://localhost:3000/users/match?id=${id}` , {
         method:"POST",
         headers:{
@@ -73,7 +75,7 @@ async clickCross(id){
 async proximoCadastro(){
     
     this.index = (this.index + 1) % this.mainModel.length;
-    document.querySelector("#main").innerHTML = await new mainAppView( this.mainModel[this.index]).template();
+    document.querySelector("#main").innerHTML = await new mainAppView( this.mainModel[this.index] ,this.imgUserLogado).template();
     this.bind()
     
 }

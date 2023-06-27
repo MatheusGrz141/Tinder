@@ -96,32 +96,32 @@ userRouter.delete("/delete-account", authMiddleWare , async (req,res)=>{
 })
 userRouter.get("/get-accounts" , authMiddleWare ,async(req,res)=>{
     
-    let {userInterests ,
-        mycross
+    let {
+        interests ,
+        mycross,
+        iAm
     } = req.userLogado
-
+    
     let UsersComMesmosInteresses = [] 
     let users =[]
-    let iAm = req.userLogado.iAm;
     
-    if(iAm == 'Man'){
-        UsersComMesmosInteresses= await User.find({iAm:'Woman',interests:{$in :userInterests}})
-    }else if(iAm == 'Woman'){
-        UsersComMesmosInteresses= await User.find({iAm:'Man',interests:{$in :userInterests}})
+    if(iAm == 'Man'){  
+        UsersComMesmosInteresses= await User.find({iAm: "Woman" , interests:{$in :interests}})
+    }else if(iAm == 'Woman'){ 
+        UsersComMesmosInteresses= await User.find({iAm: "Man" ,interests:{$in :userInterests}})
     }else{
         UsersComMesmosInteresses= await User.find({interests:{$in :userInterests}})
-    }
-    
+    } 
     UsersComMesmosInteresses.forEach((user)=>{
+        
         if (req.userLogado.id != user._id ){
             users.push({
                 id:user._id, 
                 firstName:user.firstName,
                 lastName:user.lastName,
                 avatar:user.avatar 
-            })
-            
-            req.userLogado.mycross.forEach((cross)=>{
+            }) 
+            mycross.forEach((cross)=>{
                 cross.id.includes( user => cross.id === user._id)
                 
                 if(user){

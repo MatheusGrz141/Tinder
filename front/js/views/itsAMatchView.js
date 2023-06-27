@@ -1,7 +1,5 @@
 class itsAMAtchView {
-    constructor(){
-
-    }
+    
     template(){
         return `
         <div class="imgs-matchs ">
