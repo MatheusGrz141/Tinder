@@ -3,6 +3,7 @@ class matchesController{
         
         await this.buscaOsMatchs();
         this.imgUserLogado = sessionStorage.getItem("iconAvatar");
+        this.nome =sessionStorage.getItem("firstName");
         document.querySelector("#main").innerHTML = new matchesView(this.matchs, this.imgUserLogado ).template()
         this.bind()
     }
@@ -22,7 +23,8 @@ class matchesController{
                 sessionStorage.setItem("imgItsAMatch" ,imgItsAMatch.src ) 
                 let id =  e.target.dataset.index
                 this.removeMatch(id)
-                new Navegacao().irParaItsAMAtch() 
+               
+                new Navegacao().irParaItsAMAtch({imgItsAMatch: imgItsAMatch.src, imgUserLogado:this.imgUserLogado,nome:this.nome }) 
             })
         })
         document.querySelectorAll(".cross").forEach((button)=>{

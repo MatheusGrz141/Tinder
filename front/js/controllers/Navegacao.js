@@ -69,15 +69,15 @@ class Navegacao{
   irParaProfile(){
     this.irPara(this.rotas.profile)
   }
-  irParaItsAMAtch(){
-    this.irPara(this.rotas.itsAMAtch)
+  irParaItsAMAtch(params){
+    this.irPara(this.rotas.itsAMAtch, params)
   }
   irParaMainApp(){
     this.irPara(this.rotas.mainApp);
   }
   
   
-  irPara(rota) {
-    rota.controller.init();
+  irPara(rota, params) {
+    rota.controller.init(params);
   }
 }

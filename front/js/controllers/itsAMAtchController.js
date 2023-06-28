@@ -1,6 +1,6 @@
 class itsAMAtchController {
-    init(){
-        document.querySelector("#main").innerHTML = new itsAMAtchView().template()
+    init(params){
+        document.querySelector("#main").innerHTML = new itsAMAtchView(params).template()
         this.bind()
     }
     bind(){

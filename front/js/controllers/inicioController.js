@@ -21,7 +21,7 @@ class inicioController{
                 this.mudarImagemDeFundo(index);  
             })
         })
-        this.mudarImagemDeFundoAltomatica(0)
+       /*  this.mudarImagemDeFundoAltomatica(0) */
     }   
     
     mudarImagemDeFundo(index) {
@@ -57,9 +57,9 @@ class inicioController{
         botoesSelecionado[i].classList.add('selecionado');
         i = (i + 1) % 3;
         
-        setTimeout(()=> {
+       /*  setTimeout(()=> {
             clearInterval(this.mudarImagemDeFundoAltomatica(i));
-        }, 3000);
+        }, 3000); */
     }
 
 }
